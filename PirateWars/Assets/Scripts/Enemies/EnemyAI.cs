@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour {
 	public float patrolSpeed; // = 7f;	
 	public float attackSpeed;
 	public float firingRange; // = 80;
+	private float offset;
 
 	//way point information
 	public Transform[] patrolWayPoints;				
@@ -50,6 +51,7 @@ public class EnemyAI : MonoBehaviour {
 		attackDistance = 1000;
 
 		state = PATROL; // start as patrolling enemies
+		offset = firingRange / 2;
 	}
 
 
@@ -59,7 +61,7 @@ public class EnemyAI : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		print (state);
+		//print (state);
 		if (state.Equals (ATTACK)) {
 			Attacking();
 		} else if (state.Equals(CHASE)) {
@@ -80,9 +82,10 @@ public class EnemyAI : MonoBehaviour {
 	{
 		//print ("OnTriggerStay " + other.gameObject + "\t" + other);
 		if (other.gameObject == player) {
+			//print ("Player detected");
 			float distance = Vector3.Distance (transform.position, player.transform.position);
-			//print ("Distance" + distance + "\t" + firingRange + "\t" + state);
-			if (distance > firingRange * 2){ 
+			print ("Distance" + distance + "\t" + firingRange + "\t" + state);
+			if (distance > firingRange + offset){ 
 				Chasing();
 			} else {
 				Attacking();
@@ -118,10 +121,10 @@ public class EnemyAI : MonoBehaviour {
 		Vector3 right = center;
 		Vector3 top = center;
 		Vector3 bottom = center;
-		left.x = left.x - firingRange;
-		right.x = right.x + firingRange;
-		top.z = top.z + firingRange;
-		bottom.z = bottom.z - firingRange;
+		left.x = left.x - firingRange - offset;
+		right.x = right.x + firingRange - offset;
+		top.z = top.z + firingRange - offset;
+		bottom.z = bottom.z - firingRange - offset;
 
 		//set height in water to same
 		left.y = transform.position.y;
@@ -148,7 +151,7 @@ public class EnemyAI : MonoBehaviour {
 
 
 		//print ("Bounds: " + left + "\t" + right + "\t" + top + "\t" + bottom);
-		attackBarrier = new Bounds (center, new Vector3(firingRange * 2, firingRange * 2, firingRange * 2));
+		attackBarrier = new Bounds (center, new Vector3(firingRange + offset, firingRange + offset, firingRange + offset));
 	}
 
 	void Maneuver() {
