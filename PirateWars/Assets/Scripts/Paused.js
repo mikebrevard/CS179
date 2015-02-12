@@ -35,7 +35,7 @@ function TheMainMenu ()
 	{
 		Application.LoadLevel("Game Start");
 	}
-	if(GUILayout.Button("Restart"))
+	if(GUILayout.Button("Restart") || Input.GetKeyDown(KeyCode.R))
 	{
 		isPause = false;
 		Time.timeScale = 1;
