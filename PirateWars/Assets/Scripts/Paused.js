@@ -1,8 +1,12 @@
 ﻿#pragma strict
 
 var isPause = false;
-var MainMenu : Rect = Rect (465, 250, 200, 200);
+var MainMenu : Rect = Rect (Screen.width / 2, Screen.height / 2, 200, 200);
 //MainMenu.center = new Vector2 (500, 500);
+function Start()
+{
+	Screen.showCursor = true;
+}
 function Update () 
 {
 	if( Input.GetKeyDown(KeyCode.Escape))
@@ -22,6 +26,11 @@ function OnGUI()
 
 function TheMainMenu () 
 {
+	if(GUILayout.Button("Resume"))
+	{
+		isPause = false;
+		Time.timeScale = 1;
+	}
 	if(GUILayout.Button("Main Menu"))
 	{
 		Application.LoadLevel("Game Start");

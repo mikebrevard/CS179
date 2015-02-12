@@ -18,7 +18,6 @@ var height = 5.0;
 // How much we 
 var heightDamping = 2.0;
 var rotationDamping = 3.0;
-
 // Place the script in the Camera-Control group in the component menu
 @script AddComponentMenu("Camera-Control/Smooth Follow")
 
@@ -54,4 +53,5 @@ function LateUpdate () {
 	
 	// Always look at the target
 	transform.LookAt (target);
+	Screen.showCursor = false;
 }
