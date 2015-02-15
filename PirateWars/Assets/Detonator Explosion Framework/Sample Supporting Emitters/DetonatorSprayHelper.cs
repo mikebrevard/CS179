@@ -2,16 +2,13 @@ using UnityEngine;
 using System.Collections;
 
 public class DetonatorSprayHelper : MonoBehaviour {
-public float startTimeMin = 0;
-public float startTimeMax = 0;
-public float stopTimeMin = 10;
-public float stopTimeMax = 10;
 
 public Material firstMaterial;
 public Material secondMaterial;
 
 private float startTime;
 private float stopTime;
+private float destroy;
 
 //the time at which this came into existence
 	private bool  isReallyOn;
@@ -25,6 +22,8 @@ void Start (){
 	//get a random number between startTimeMin and Max
 	startTime = (0.0f + Time.time);
 	stopTime = (0.2f + Time.time);
+	destroy = (2.0f + Time.time);
+
 	
 	//assign a random material
 	renderer.material = Random.value > 0.5f ? firstMaterial : secondMaterial;
@@ -40,6 +39,9 @@ void FixedUpdate (){
 	if (Time.time > stopTime)
 	{
 		particleEmitter.emit = false;
+		if(Time.time > destroy)
+			Destroy (gameObject);
 	}
 }
+
 }
