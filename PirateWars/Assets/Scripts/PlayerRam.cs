@@ -10,7 +10,7 @@ public class PlayerRam : MonoBehaviour {
 		{
 			GameObject  enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
 			EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-			health.hitDetection();
+			health.hitDetectionLarge();
 			if (health.isDead())
 			{ 
 				Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
