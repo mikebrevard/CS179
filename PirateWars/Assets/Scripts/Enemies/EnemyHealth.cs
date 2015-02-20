@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour {
 	public Transform enemyShip;
 	private GameObject player;	
 	private bool dead = false;
+	public float startingHealth = 100;                            // The amount of health the player starts the game with.
+	public float currentHealth;   
 
 	public bool isDead() {
 		return dead;
@@ -16,11 +18,30 @@ public class EnemyHealth : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag(Tags.player);
 		gameObject.renderer.material.color = Color.green;
+		currentHealth = startingHealth;
 	}
 
-	public void hitDetection() {
-		gameObject.renderer.material.color = Color.red;
-		dead = true;
+	private void hitDection(int amount) {
+		currentHealth = currentHealth - amount;
+
+		if (currentHealth <= 25) {
+			gameObject.renderer.material.color = Color.red;
+		} else if (currentHealth <= 50) {
+			gameObject.renderer.material.color = Color.yellow;
+		}
+
+		//check if dead
+		if (currentHealth <= 0) {
+			dead = true;
+		}
+	}
+
+	public void hitDetectionSmall() {
+		hitDection (10);
+	}
+
+	public void hitDetectionLarge() {
+		hitDection (25);
 	}
 
 	// Update is called once per frame

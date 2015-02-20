@@ -18,23 +18,32 @@ public class CannonballCollision : MonoBehaviour {
 	void OnTriggerEnter(Collider other) 
 	{
 
-		if(other.tag == "EnemyShip")
-		{
+		if (other.tag == "EnemyShip") {
 			//call explosion animation
-			Instantiate(explosion, gameObject.transform.position, other.transform.rotation);
-			GameObject  enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
-			EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-			health.hitDetection();
-			if (health.isDead())
-			{ 
+			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
+			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
+			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
+		health.hitDetectionLarge ();
+			if (health.isDead ()) { 
 				Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
-				Application.LoadLevel("Game Over");
+				Application.LoadLevel ("Game Over");
 			}
 			//despawn cannonball
 			Destroy (gameObject);
 
+		} else if (other.tag == "EnemySail") {
+			//call explosion animation
+			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
+			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
+			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
+			health.hitDetectionSmall ();
+			if (health.isDead ()) { 
+				Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
+				Application.LoadLevel ("Game Over");
+			}
+			//despawn cannonball
+			Destroy (gameObject);
 		}
-
 		else if (other.tag == "Terrain")
 		{
 			//call explosion animation for terrain

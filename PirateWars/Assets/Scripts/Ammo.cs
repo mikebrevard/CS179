@@ -28,4 +28,12 @@ public class Ammo : MonoBehaviour {
 		if(ammo > 0)
 			ammo -= 1;
 	}
+
+	public void refillAmmo(int refill)
+	{
+		if(ammo + refill > maxAmmo)
+			ammo = maxAmmo;
+		else
+			ammo += refill;
+	}
 }
