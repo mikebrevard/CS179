@@ -14,6 +14,12 @@ public class CannonballCollision : MonoBehaviour {
 	
 	}
 
+	private void checkDestroyEnemy(EnemyHealth health) {
+		if (health.isDead ()) { 
+			Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
+			Application.LoadLevel ("Game Over");
+		}
+	}
 
 	void OnTriggerEnter(Collider other) 
 	{
@@ -23,11 +29,10 @@ public class CannonballCollision : MonoBehaviour {
 			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
 			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
 			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
-		health.hitDetectionLarge ();
-			if (health.isDead ()) { 
-				Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
-				Application.LoadLevel ("Game Over");
-			}
+			health.hitDetectionLarge ();
+
+			checkDestroyEnemy(health);
+
 			//despawn cannonball
 			Destroy (gameObject);
 
@@ -37,10 +42,8 @@ public class CannonballCollision : MonoBehaviour {
 			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
 			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
 			health.hitDetectionSmall ();
-			if (health.isDead ()) { 
-				Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
-				Application.LoadLevel ("Game Over");
-			}
+
+			checkDestroyEnemy(health);
 			//despawn cannonball
 			Destroy (gameObject);
 		}

@@ -84,7 +84,7 @@ public class EnemyAI : MonoBehaviour {
 		if (other.gameObject == player) {
 			//print ("Player detected");
 			float distance = Vector3.Distance (transform.position, player.transform.position);
-			print ("Distance" + distance + "\t" + firingRange + "\t" + state);
+			// print ("Distance" + distance + "\t" + firingRange + "\t" + state);
 			if (distance > firingRange + offset){ 
 				Chasing();
 			} else {
