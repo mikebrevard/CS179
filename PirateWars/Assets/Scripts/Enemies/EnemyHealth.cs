@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag(Tags.player);
 		gameObject.renderer.material.color = Color.green;
+
 		currentHealth = startingHealth;
 	}
 
@@ -46,6 +47,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		gameObject.transform.localScale = new Vector3(currentHealth,10.0f,10.0f);
 		if (player.transform.position - gameObject.transform.position != Vector3.zero) {
 			Quaternion rotation = Quaternion.LookRotation (player.transform.position - gameObject.transform.position);
 			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * rotationSpeed);
