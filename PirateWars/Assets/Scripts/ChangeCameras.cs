@@ -16,32 +16,23 @@ public class ChangeCameras: MonoBehaviour
 	private Vector3 mouseOrigin;
 	private bool isRotating;
 
-	private bool resetMain;
-
 	void Start() {
 		cameraMain.active = true;
 		cameraLeft.active = false;
 		cameraRight.active = false;
-		resetMain = false;
 	}
 	void Update () {
 
 		if(Input.GetKey("q")){
 			cameraLeft.active = true;
 			cameraRight.active = false;
-			resetMain = true;
 		}
 		else if(Input.GetKey("e")){
 			cameraLeft.active = false;
 			cameraRight.active = true;
-			resetMain = true;
 		}
 		else if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
-			if(resetMain = true)
-			{
-				cameraMain.transform.rotation = transform.rotation;
-				resetMain = false;
-			}
+
 			cameraMain.active = true;
 			cameraLeft.active = false;
 			cameraRight.active = false;
