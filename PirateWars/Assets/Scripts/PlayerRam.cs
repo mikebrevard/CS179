@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerRam : MonoBehaviour {
 
+	GameObject player;
+	PlayerHealth playerHealth;
+
 	void OnTriggerEnter(Collider other) 
 	{
 		
@@ -16,6 +19,11 @@ public class PlayerRam : MonoBehaviour {
 				Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
 				Application.LoadLevel("Game Over");
 			}
+
+			player = GameObject.FindGameObjectWithTag ("Player");
+			//TODO: add back in health
+			playerHealth = player.GetComponent <PlayerHealth> ();
+			playerHealth.TakeDamage(5);
 		}
 	}
 }
