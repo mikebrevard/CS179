@@ -4,12 +4,16 @@ using System.Collections;
 public class EnemyAI : MonoBehaviour {
 
 
-	private GameObject player;							
+	private GameObject player;	
+	private GameObject ship;
+
+	//speeds
 	public float rotationSpeed;
-	public float chaseSpeed; // = 5f;	
-	public float patrolSpeed; // = 7f;	
+	public float chaseSpeed;
+	public float patrolSpeed;
 	public float attackSpeed;
-	public float firingRange; // = 80;
+
+	private float firingRange = 200;
 	private float offset;
 
 	//way point information
@@ -30,9 +34,22 @@ public class EnemyAI : MonoBehaviour {
 	private Vector3 attackPosition;
 	private float attackDistance;
 
+	private string colliderState;
+
 	public bool userInSight() {
 		//TODO:
 		return true;
+	}
+
+	public void setColliderLevel(string c) {
+		if (c.Equals (ATTACK)) {
+			state = ATTACK;
+			//to prevent enemy stopping (jumping from attack and chase
+		} else if (c.Equals (CHASE) && !state.Equals(ATTACK)) { 
+			state = CHASE;
+		} else if (c.Equals (PATROL)) {
+			state = PATROL;
+		}
 	}
 
 	public bool isAttackState() {
@@ -42,6 +59,7 @@ public class EnemyAI : MonoBehaviour {
 	// Use thisw for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag(Tags.playerShip);
+		ship = GameObject.FindGameObjectWithTag (Tags.enemy);
 		wayPointIndex = -1;
 		distanceToDestination = 0;
 
@@ -51,7 +69,7 @@ public class EnemyAI : MonoBehaviour {
 		attackDistance = 1000;
 
 		state = PATROL; // start as patrolling enemies
-		offset = firingRange / 2;
+		colliderState = state;
 	}
 
 
@@ -61,7 +79,7 @@ public class EnemyAI : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//print (state);
+		print (state);
 		if (state.Equals (ATTACK)) {
 			Attacking();
 		} else if (state.Equals(CHASE)) {
@@ -70,6 +88,7 @@ public class EnemyAI : MonoBehaviour {
 			Patrolling ();
 		}
 	}
+	/*
 
 	void OnTriggerEnter(Collider other) {
 		//print ("OnTriggerEnter " + other.gameObject + "\t" + other);
@@ -101,6 +120,7 @@ public class EnemyAI : MonoBehaviour {
 			Patrolling ();
 		}
 	}
+	*/
 
 	//TODO: change things up
 	public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
@@ -127,10 +147,10 @@ public class EnemyAI : MonoBehaviour {
 		bottom.z = bottom.z - firingRange - offset;
 
 		//set height in water to same
-		left.y = transform.position.y;
-		right.y = transform.position.y;
-		top.y = transform.position.y;
-		bottom.y = transform.position.y;
+		left.y = ship.transform.position.y;
+		right.y = ship.transform.position.y;
+		top.y = ship.transform.position.y;
+		bottom.y = ship.transform.position.y;
 
 
 		barrierPoints.Add (left);
@@ -160,9 +180,9 @@ public class EnemyAI : MonoBehaviour {
 		for (int i = 0; i < barrierPoints.Count; i++) {
 			Vector3 possible = (Vector3) barrierPoints[i];
 			//print ("Possibility:  " + Vector3.Distance (transform.position, possible) + "\t" + distanceTemp + "\t" + attackDistance);
-			if (Vector3.Distance (transform.position, possible) < distanceTemp)  {
+			if (Vector3.Distance (ship.transform.position, possible) < distanceTemp)  {
 				attackPossibility = possible;
-				distanceTemp = Vector3.Distance (transform.position, possible);
+				distanceTemp = Vector3.Distance (ship.transform.position, possible);
 			}
 		}
 
@@ -171,7 +191,7 @@ public class EnemyAI : MonoBehaviour {
 			attackDistance = distanceTemp;
 		} 
 	//	print ("travel to " + attackPosition +"\t" + attackPossibility + "\t" + transform.position + "\t" + player.transform.position);
-		Move (transform.position, attackPosition, attackSpeed);
+		Move (ship.transform.position, attackPosition, attackSpeed);
 	}
 
 	void ClearAttack() {
@@ -202,7 +222,7 @@ public class EnemyAI : MonoBehaviour {
 	void Chasing() {
 		state = CHASE;
 		ClearAttack ();
-		Move (transform.position, player.transform.position, chaseSpeed);
+		Move (ship.transform.position, player.transform.position, chaseSpeed);
 	}
 	
 	void Patrolling ()
@@ -226,18 +246,18 @@ public class EnemyAI : MonoBehaviour {
 			}
 		}
 
-		Move (transform.position, wayPoint.position, patrolSpeed);
+		Move (ship.transform.position, wayPoint.position, patrolSpeed);
 	}
 	
 	void Move(Vector3 current, Vector3 destination, float speed) {
 		//print ("Move: " + current + "\tto " + destination);
 		if (destination - current != Vector3.zero) {
 			Quaternion rotation = Quaternion.LookRotation(destination - current);
-			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+			ship.transform.rotation = Quaternion.Slerp(ship.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 		}
 
 		distanceToDestination = Vector3.Distance (current, destination);
-		transform.position = Vector3.MoveTowards(current, destination, speed * Time.deltaTime);
+		ship.transform.position = Vector3.MoveTowards(current, destination, speed * Time.deltaTime);
 		//print ("current: " + current + "\t" + destination);
 	}
 }

@@ -18,7 +18,8 @@ public class EnemyCannon : MonoBehaviour {
 	
 	void Update()
 	{
-		//print ("Is in attack state? " + enemyAIscript.isAttackState() + "\t" + Time.time + "\t" + fire);
+		//TODO: add back in
+		/*
 		if (enemyAIscript.isAttackState() && enemyAIscript.userInSight() && Time.time > fire) {
 			fire = Time.time + rateOfFire;
 			GameObject clone = (GameObject)Instantiate (cannonball, transform.position, transform.rotation);
@@ -26,5 +27,6 @@ public class EnemyCannon : MonoBehaviour {
 			//Physics.IgnoreCollision (clone.collider, enemyShip.transform.collider);
 			audio.Play();
 		}
+		*/
 	}
 }
