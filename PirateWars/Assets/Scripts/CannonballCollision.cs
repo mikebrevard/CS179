@@ -30,7 +30,7 @@ public class CannonballCollision : MonoBehaviour {
 			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
 			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
 			health.hitDetectionLarge ();
-
+			print ("Ship hit!");
 			checkDestroyEnemy(health);
 
 			//despawn cannonball
