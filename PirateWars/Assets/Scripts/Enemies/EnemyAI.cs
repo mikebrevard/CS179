@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour {
 	public float patrolSpeed;
 	public float attackSpeed;
 
-	private float firingRange = 200;
+	private float firingRange = 100;
 	private float offset;
 
 	//way point information
