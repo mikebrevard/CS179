@@ -12,9 +12,21 @@ public class BoatController : MonoBehaviour
 	{
 		if (Time.timeScale == 1)
 		{
-			Vector3 speed_of_boat = Vector3.forward * Input.GetAxis ("Vertical") * speed;
-			rigidbody.AddRelativeForce (speed_of_boat);
-			transform.Rotate (Vector3.up * Input.GetAxis ("Horizontal") * rotationSpeed);
+			if (Input.GetKey (KeyCode.W))
+			{
+				rigidbody.AddRelativeForce (Vector3.forward * Input.GetAxis ("Vertical") * (speed));
+
+			}
+			if (Input.GetKey (KeyCode.S))
+			{
+				rigidbody.AddRelativeForce (Vector3.forward * Input.GetAxis ("Vertical") * (5));
+			}
+
+			if (rigidbody.velocity.magnitude > 1.5)
+			{
+				transform.Rotate (Vector3.up * Input.GetAxis ("Horizontal") * rotationSpeed);
+			}
+
 			if (rigidbody.velocity.magnitude > 8)
 			{
 				Instantiate(water, water_left.transform.position, water_left.transform.rotation);
