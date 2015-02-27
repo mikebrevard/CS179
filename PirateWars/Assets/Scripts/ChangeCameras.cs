@@ -31,7 +31,7 @@ public class ChangeCameras: MonoBehaviour
 			cameraLeft.active = false;
 			cameraRight.active = true;
 		}
-		else if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
+		else if(Input.GetKey(KeyCode.Space)){
 
 			cameraMain.active = true;
 			cameraLeft.active = false;
