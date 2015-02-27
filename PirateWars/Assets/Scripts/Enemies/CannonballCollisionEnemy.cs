@@ -21,9 +21,8 @@ public class CannonballCollisionEnemy : MonoBehaviour {
 	void OnTriggerEnter(Collider other) 
 	{
 		//print (other + "\t" + other.tag);
-		if (other.tag == "PlayerShip" | other.tag == "Player") 
+		if (other.tag == "PlayerShip") 
 		{
-		//	print ("HIT TAKEN");
 			//damage to player
 			player = GameObject.FindGameObjectWithTag ("Player");
 			//TODO: add back in health
@@ -35,6 +34,19 @@ public class CannonballCollisionEnemy : MonoBehaviour {
 			//Despawn cannonball
 			Destroy (gameObject);
 			//Application.LoadLevel("Game Lost");
+		}
+
+		else if (other.tag == "PlayerSail")
+		{
+			player = GameObject.FindGameObjectWithTag ("Player");
+			//TODO: add back in health
+			playerHealth = player.GetComponent <PlayerHealth> ();
+			playerHealth.TakeDamage(10);
+			
+			//call explosion animation
+			Instantiate(explosion, other.transform.position, other.transform.rotation);
+			//Despawn cannonball
+			Destroy (gameObject);
 		}
 		
 		else if (other.tag == "Terrain")
