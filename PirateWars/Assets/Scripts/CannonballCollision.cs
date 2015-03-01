@@ -17,6 +17,7 @@ public class CannonballCollision : MonoBehaviour {
 	private void checkDestroyEnemy(EnemyHealth health) {
 		if (health.isDead ()) { 
 			Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
+			Screen.showCursor = true;
 			Application.LoadLevel ("Game Over");
 		}
 	}

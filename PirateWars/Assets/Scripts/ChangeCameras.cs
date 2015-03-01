@@ -20,8 +20,10 @@ public class ChangeCameras: MonoBehaviour
 		cameraMain.active = true;
 		cameraLeft.active = false;
 		cameraRight.active = false;
+		Screen.showCursor = false;
 	}
 	void Update () {
+		Screen.showCursor = false;
 
 		if(Input.GetKey("q")){
 			cameraLeft.active = true;
