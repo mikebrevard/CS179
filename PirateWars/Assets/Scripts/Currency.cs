@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Currency : MonoBehaviour {
 
-	public Text currencyGUI;
+	private Text currencyGUI;
 	int money = 0;
 
 	// Use this for initialization
@@ -14,7 +14,11 @@ public class Currency : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		currencyGUI.text = "$" + money;
+		if(GameObject.FindGameObjectWithTag ("CurrencyGUI"))
+		{
+			currencyGUI = GameObject.FindGameObjectWithTag ("CurrencyGUI").GetComponent<Text> ();
+			currencyGUI.text = "$" + money;
+		}
 	}
 
 	public void addCurrency(int m)
