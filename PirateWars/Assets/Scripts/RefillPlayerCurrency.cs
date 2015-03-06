@@ -15,7 +15,7 @@ public class RefillPlayerCurrency : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "PlayerShip")
+		if(other.tag == "PlayerLoot")
 		{
 			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
 			Currency c = currency.GetComponent<Currency>();
