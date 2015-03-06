@@ -14,6 +14,7 @@ public class TerrainDestroyByContact : MonoBehaviour {
 		//ignores ships
 		if (other.tag == "Player") 
 		{
+			//print ("Collision");
 			//player loses health, bounces off terrain
 			player = GameObject.FindGameObjectWithTag ("Player");
 			playerHealth = player.GetComponent <PlayerHealth> ();
@@ -23,7 +24,7 @@ public class TerrainDestroyByContact : MonoBehaviour {
 
 			if(velocity < 50)
 			{
-				other.collider.rigidbody.velocity = new Vector3(-other.collider.rigidbody.velocity.x * 2.0f, 0, -other.collider.rigidbody.velocity.z * 2.0f) ;
+				other.collider.rigidbody.velocity = new Vector3(-other.collider.rigidbody.velocity.x * 2.5f, 0, -other.collider.rigidbody.velocity.z * 2.5f) ;
 				playerHealth.TakeDamage(5);
 			}
 
@@ -36,8 +37,9 @@ public class TerrainDestroyByContact : MonoBehaviour {
 
 
 		} 
-		else if(other.tag == "Enemy")
+		else if(other.tag == "EnemyShip" || other.tag == "Enemy")
 		{
+			print ("Collision");
 			enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
 			enemyHealth = enemy.GetComponent<EnemyHealth> ();
 

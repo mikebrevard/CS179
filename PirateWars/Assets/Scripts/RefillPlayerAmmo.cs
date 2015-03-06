@@ -15,7 +15,7 @@ public class RefillPlayerAmmo : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "PlayerShip")
+		if(other.tag == "PlayerLoot")
 		{
 			GameObject ammoCounter = GameObject.FindGameObjectWithTag ("Ammo");
 			Ammo ammo = ammoCounter.GetComponent<Ammo>();
