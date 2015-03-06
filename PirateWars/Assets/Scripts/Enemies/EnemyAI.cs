@@ -3,18 +3,16 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour {
 
-
+	//objects
 	private GameObject player;	
 	private GameObject ship;
+	public string tag;
 
 	//speeds
 	public float rotationSpeed;
 	public float chaseSpeed;
 	public float patrolSpeed;
 	public float attackSpeed;
-
-	private float firingRange = 200;
-	private float offset;
 
 	//way point information
 	public Transform[] patrolWayPoints;				
@@ -29,16 +27,29 @@ public class EnemyAI : MonoBehaviour {
 	private string state;
 
 	//attack information
-	private ArrayList barrierPoints;
-	private Bounds attackBarrier;
-	private Vector3 attackPosition;
-	private float attackDistance;
+	private float firingRange = 150;
+	private float minumuDistance = 25;
+	private bool isNewAttackSequence;
+	private Vector3 attackDestination;
 
-	private string colliderState;
+	void Start () {
+		//init player and enemy ship
+		player = GameObject.FindGameObjectWithTag(Tags.playerShip);
+		ship = GameObject.FindGameObjectWithTag (tag);
+		
+		//set waypoint first waypoint and the distance to the waypoint is 0
+		wayPointIndex = -1;
+		distanceToDestination = 0;
 
-	public bool userInSight() {
-		//TODO:
-		return true;
+		//start enemy as patrol
+		state = PATROL;
+
+		//this is a new attack sequence because there is no previous attack
+		isNewAttackSequence = true;
+	}
+
+	void Awake() {
+		//player = GameObject.FindGameObjectWithTag(Tags.player);
 	}
 
 	public void setColliderLevel(string c) {
@@ -50,31 +61,7 @@ public class EnemyAI : MonoBehaviour {
 		} else if (c.Equals (PATROL)) {
 			state = PATROL;
 		}
-	}
-
-	public bool isAttackState() {
-		return (state.Equals(ATTACK)) ? true : false;
-	}
-
-	// Use thisw for initialization
-	void Start () {
-		player = GameObject.FindGameObjectWithTag(Tags.playerShip);
-		ship = GameObject.FindGameObjectWithTag (Tags.enemy);
-		wayPointIndex = -1;
-		distanceToDestination = 0;
-
-		barrierPoints = new ArrayList ();
-
-		//attack inits
-		attackDistance = 1000;
-
-		state = PATROL; // start as patrolling enemies
-		colliderState = state;
-	}
-
-
-	void Awake() {
-		//player = GameObject.FindGameObjectWithTag(Tags.player);
+		Update ();
 	}
 
 	// Update is called once per frame
@@ -88,146 +75,106 @@ public class EnemyAI : MonoBehaviour {
 			Patrolling ();
 		}
 	}
-	/*
 
-	void OnTriggerEnter(Collider other) {
-		//print ("OnTriggerEnter " + other.gameObject + "\t" + other);
-//		if (other.gameObject == player) {
-//			Chasing();		
-//		}
+	public bool userInSight() {
+		//TODO: so that the opposite cannons do not fire
+		return true;
 	}
 
-	void OnTriggerStay (Collider other)
-	{
-		//print ("OnTriggerStay " + other.gameObject + "\t" + other);
-		if (other.gameObject == player) {
-			//print ("Player detected");
-			float distance = Vector3.Distance (transform.position, player.transform.position);
-			// print ("Distance" + distance + "\t" + firingRange + "\t" + state);
-			if (distance > firingRange + offset){ 
-				Chasing();
-			} else {
-				Attacking();
-			}
-		}
+	public bool isAttackState() {
+		return (state.Equals(ATTACK)) ? true : false;
 	}
-	
-	
-	void OnTriggerExit (Collider other)
-	{
-		if (other.gameObject == player) {
-			ClearAttack();
-			Patrolling ();
-		}
-	}
-	*/
-
-	//TODO: change things up
-	public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
-		Vector3 dir = point - pivot; // get point direction relative to pivot
-		dir = Quaternion.Euler(angles) * dir; // rotate it
-		point = dir + pivot; // calculate rotated point
-		return point; // return it
+	void Maneuver() {
+		//print ("travel to " + attackPosition +"\t" + attackPossibility + "\t" + transform.position + "\t" + player.transform.position);
+		Move (ship.transform.position, attackDestination, attackSpeed);
 	}
 
-	void ConstructBarrier() {
-		if (barrierPoints == null) {
-			barrierPoints = new ArrayList();		
-		}
+	void ClearAttack() {
+		isNewAttackSequence = true;
+	}
 
-		barrierPoints.Clear ();
+	//TODO: decides which point to travel to
+	void decideNextAttackPosition() {
+
+		//not a new attack anymore (being decided now)
+		isNewAttackSequence = false;
+
+		//decide where to go
 		Vector3 center = player.transform.position;
 		Vector3 left = center;
 		Vector3 right = center;
 		Vector3 top = center;
 		Vector3 bottom = center;
-		left.x = left.x - firingRange - offset;
-		right.x = right.x + firingRange - offset;
-		top.z = top.z + firingRange - offset;
-		bottom.z = bottom.z - firingRange - offset;
 
+		//build travel diamond
+		left.x = left.x - firingRange;
+		right.x = right.x + firingRange;
+		top.z = top.z + firingRange;
+		bottom.z = bottom.z - firingRange;
+				
 		//set height in water to same
 		left.y = ship.transform.position.y;
 		right.y = ship.transform.position.y;
 		top.y = ship.transform.position.y;
 		bottom.y = ship.transform.position.y;
+		
+		//find which possible destination is nearest to user and enemy (assign left)
+		Vector3 possible = Vector3.zero;
+		float distance = firingRange * 2;
 
-
-		barrierPoints.Add (left);
-		barrierPoints.Add (right);
-		barrierPoints.Add (top);
-		barrierPoints.Add (bottom);
-
-
-		//TODO:
-		//construct points that are angled
-		for (int i = 30; i < 90; i = i + 30) {
-			Vector3 angle = new Vector3 (0, i, 0);
-			barrierPoints.Add (RotatePointAroundPivot (left, center, angle));
-			barrierPoints.Add (RotatePointAroundPivot (right, center, angle));
-			barrierPoints.Add (RotatePointAroundPivot (top, center, angle));
-			barrierPoints.Add (RotatePointAroundPivot (bottom, center, angle));
+		//check left
+		if (Vector3.Distance (ship.transform.position,left) < distance && 
+		    Vector3.Distance (ship.transform.position,left) >= minumuDistance) {
+			possible = left;
+			distance = Vector3.Distance (ship.transform.position, possible);
+			// print ("Decide left: " + possible + "\t" + distance);
 		}
-
-
-		//print ("Bounds: " + left + "\t" + right + "\t" + top + "\t" + bottom);
-		attackBarrier = new Bounds (center, new Vector3(firingRange + offset, firingRange + offset, firingRange + offset));
-	}
-
-	void Maneuver() {
-		float distanceTemp = 1000;
-		Vector3 attackPossibility = new Vector3 ();
-		for (int i = 0; i < barrierPoints.Count; i++) {
-			Vector3 possible = (Vector3) barrierPoints[i];
-			//print ("Possibility:  " + Vector3.Distance (transform.position, possible) + "\t" + distanceTemp + "\t" + attackDistance);
-			if (Vector3.Distance (ship.transform.position, possible) < distanceTemp)  {
-				attackPossibility = possible;
-				distanceTemp = Vector3.Distance (ship.transform.position, possible);
-			}
+		
+		//check right
+		if (Vector3.Distance (ship.transform.position,right) < distance && 
+		    Vector3.Distance (ship.transform.position,right) >= minumuDistance) {
+			possible = right;
+			distance = Vector3.Distance (ship.transform.position, possible);
+			// print ("Decide right: " + possible + "\t" + distance);
 		}
+		
+		//check top
+		if (Vector3.Distance (ship.transform.position,top) < distance && 
+		    Vector3.Distance (ship.transform.position,top) >= minumuDistance) {
+			possible = top;
+			distance = Vector3.Distance (ship.transform.position, possible);
+			// print ("Decide top: " + possible + "\t" + distance);
+		}
+		
+		//check bottom
+		if (Vector3.Distance (ship.transform.position,bottom) < distance && 
+		    Vector3.Distance (ship.transform.position,bottom) >= minumuDistance) {
+			possible = bottom;
+			distance = Vector3.Distance (ship.transform.position, possible);
+			// print ("Decide bottom: " + possible + "\t" + distance);
+		}
+		
+		//set attack position and destination
+		attackDestination = possible;
 
-		if (attackPosition == null || distanceTemp < attackDistance) {
-			attackPosition = attackPossibility;
-			attackDistance = distanceTemp;
-		} 
-	//	print ("travel to " + attackPosition +"\t" + attackPossibility + "\t" + transform.position + "\t" + player.transform.position);
-		Move (ship.transform.position, attackPosition, attackSpeed);
-	}
-
-	void ClearAttack() {
-		attackDistance = 1000;
-		barrierPoints.Clear ();
-		attackBarrier = new Bounds ();
-		//distanceToDestination = 0;
 	}
 
 	void Attacking() {
-		state = ATTACK;
-		//attackDistance = distanceToDestination;
-		//print ("is user in attackBarrier?: " + attackBarrier.Contains (player.transform.position));
-		if (barrierPoints == null || barrierPoints.Count == 0 || attackBarrier == null || !attackBarrier.Contains (player.transform.position)) {
-		//	print ("construct");
-			ConstructBarrier ();
-		} else if (attackDistance == 0) {
-		//	print ("RESET");
-			barrierPoints.Remove(attackPosition);
-			attackDistance = 1000;
-			Maneuver();
-		}else {
-		//	print ("maneuver");
-			Maneuver();
-		}
+		//this is the a new attack sequence
+		if (isNewAttackSequence || distanceToDestination == 0) {
+			decideNextAttackPosition ();
+		} 
+		Maneuver();
 	}
 
 	void Chasing() {
-		state = CHASE;
 		ClearAttack ();
 		Move (ship.transform.position, player.transform.position, chaseSpeed);
 	}
 	
 	void Patrolling ()
 	{
-		state = PATROL;
+		//state = PATROL;
 		ClearAttack ();
 
 		if (distanceToDestination == 0) {
