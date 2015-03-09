@@ -25,7 +25,6 @@ public class CannonballCollisionEnemy : MonoBehaviour {
 		{
 			//damage to player
 			player = GameObject.FindGameObjectWithTag ("Player");
-			//TODO: add back in health
 			playerHealth = player.GetComponent <PlayerHealth> ();
 			playerHealth.TakeDamage(20);
 			

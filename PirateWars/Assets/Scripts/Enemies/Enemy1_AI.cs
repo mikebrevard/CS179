@@ -1,36 +1,38 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class EnemyAI : MonoBehaviour {
-
+public class Enemy1_AI : MonoBehaviour {
+	
 	//objects
 	private GameObject player;	
-
+	//private GameObject ship;
+	public string tag;
+	
 	//speeds
 	public float rotationSpeed;
 	public float chaseSpeed;
 	public float patrolSpeed;
 	public float attackSpeed;
-
+	
 	//way point information
 	public Transform[] patrolWayPoints;				
 	private int wayPointIndex;								
 	private Transform wayPoint;
 	private float distanceToDestination;
-
+	
 	//state information
 	private string PATROL = "PATROL";
 	private string CHASE = "CHASE";
 	private string ATTACK = "ATTACK";
 	private string NOT_SET = "NOT_SET";
 	private string state;
-
+	
 	//attack information
 	private float firingRange = 150;
 	private float minumuDistance = 25;
 	private bool isNewAttackSequence;
 	private Vector3 attackDestination;
-
+	
 	void Start () {
 		//init player and enemy ship
 		player = GameObject.FindGameObjectWithTag(Tags.playerShip);
@@ -39,18 +41,18 @@ public class EnemyAI : MonoBehaviour {
 		//set waypoint first waypoint and the distance to the waypoint is 0
 		wayPointIndex = -1;
 		distanceToDestination = 0;
-
+		
 		//start enemy state
 		state = PATROL;
-
+		
 		//this is a new attack sequence because there is no previous attack
 		isNewAttackSequence = true;
 	}
-
+	
 	void Awake() {
 		//player = GameObject.FindGameObjectWithTag(Tags.player);
 	}
-
+	
 	public void setColliderLevel(string c) {
 		if (c.Equals (ATTACK)) {
 			state = ATTACK;
@@ -62,7 +64,7 @@ public class EnemyAI : MonoBehaviour {
 		}
 		Update ();
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		//print (state);
@@ -74,12 +76,12 @@ public class EnemyAI : MonoBehaviour {
 			Patrolling ();
 		} 
 	}
-
+	
 	public bool userInSight() {
 		//TODO: so that the opposite cannons do not fire
 		return true;
 	}
-
+	
 	public bool isAttackState() {
 		return (state.Equals(ATTACK)) ? true : false;
 	}
@@ -87,30 +89,30 @@ public class EnemyAI : MonoBehaviour {
 		//print ("travel to " + attackPosition +"\t" + attackPossibility + "\t" + transform.position + "\t" + player.transform.position);
 		Move (transform.position, attackDestination, attackSpeed);
 	}
-
+	
 	void ClearAttack() {
 		isNewAttackSequence = true;
 	}
-
+	
 	//TODO: decides which point to travel to
 	void decideNextAttackPosition() {
-
+		
 		//not a new attack anymore (being decided now)
 		isNewAttackSequence = false;
-
+		
 		//decide where to go
 		Vector3 center = player.transform.position;
 		Vector3 left = center;
 		Vector3 right = center;
 		Vector3 top = center;
 		Vector3 bottom = center;
-
+		
 		//build travel diamond
 		left.x = left.x - firingRange;
 		right.x = right.x + firingRange;
 		top.z = top.z + firingRange;
 		bottom.z = bottom.z - firingRange;
-				
+		
 		//set height in water to same
 		left.y = transform.position.y;
 		right.y = transform.position.y;
@@ -120,7 +122,7 @@ public class EnemyAI : MonoBehaviour {
 		//find which possible destination is nearest to user and enemy (assign left)
 		Vector3 possible = Vector3.zero;
 		float distance = firingRange * 2;
-
+		
 		//check left
 		if (Vector3.Distance (transform.position,left) < distance && 
 		    Vector3.Distance (transform.position,left) >= minumuDistance) {
@@ -155,9 +157,9 @@ public class EnemyAI : MonoBehaviour {
 		
 		//set attack position and destination
 		attackDestination = possible;
-
+		
 	}
-
+	
 	void Attacking() {
 		//this is the a new attack sequence
 		if (isNewAttackSequence || distanceToDestination == 0) {
@@ -165,7 +167,7 @@ public class EnemyAI : MonoBehaviour {
 		} 
 		Maneuver();
 	}
-
+	
 	void Chasing() {
 		ClearAttack ();
 		Move (transform.position, player.transform.position, chaseSpeed);
@@ -175,7 +177,7 @@ public class EnemyAI : MonoBehaviour {
 	{
 		//state = PATROL;
 		ClearAttack ();
-
+		
 		if (distanceToDestination == 0) {
 			//print ("State is NONE");
 			//state = "NONE";
@@ -191,7 +193,7 @@ public class EnemyAI : MonoBehaviour {
 				wayPoint = patrolWayPoints[wayPointIndex];
 			}
 		}
-
+		
 		Move (transform.position, wayPoint.position, patrolSpeed);
 	}
 	
@@ -201,9 +203,10 @@ public class EnemyAI : MonoBehaviour {
 			Quaternion rotation = Quaternion.LookRotation(destination - current);
 			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 		}
-
+		
 		distanceToDestination = Vector3.Distance (current, destination);
 		transform.position = Vector3.MoveTowards(current, destination, speed * Time.deltaTime);
 		//print ("current: " + current + "\t" + destination);
 	}
 }
+

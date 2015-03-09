@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyChase : MonoBehaviour {
 
 	private GameObject player;	
-	private EnemyAI ai;
+	public EnemyAI ai;
 
 	private string PATROL = "PATROL";
 	private string CHASE = "CHASE";
@@ -12,8 +12,6 @@ public class EnemyChase : MonoBehaviour {
 	
 	void Start () {
 		player = GameObject.FindGameObjectWithTag(Tags.playerShip);
-		GameObject enemy = GameObject.FindGameObjectWithTag ("EnemyBrain");
-		ai = enemy.GetComponent<EnemyAI> ();
 	}
 	
 	
@@ -22,7 +20,8 @@ public class EnemyChase : MonoBehaviour {
 	}
 
 	void Update () {
-
+		GameObject enemy = GameObject.FindGameObjectWithTag ("Enemy");
+		ai = enemy.GetComponent<EnemyAI> ();
 	}
 	
 	void OnTriggerEnter(Collider other) {
