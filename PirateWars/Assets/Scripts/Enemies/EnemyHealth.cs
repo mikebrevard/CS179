@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour {
 		currentHealth = startingHealth;
 	}
 
-	private void hitDection(int amount) {
+	public void hitDection(int amount) {
 		currentHealth = currentHealth - amount;
 
 		if (currentHealth <= 25) {

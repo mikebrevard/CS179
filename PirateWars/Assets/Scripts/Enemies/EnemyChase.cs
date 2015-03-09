@@ -20,8 +20,7 @@ public class EnemyChase : MonoBehaviour {
 	}
 
 	void Update () {
-		GameObject enemy = GameObject.FindGameObjectWithTag ("Enemy");
-		ai = enemy.GetComponent<EnemyAI> ();
+	
 	}
 	
 	void OnTriggerEnter(Collider other) {
@@ -29,7 +28,7 @@ public class EnemyChase : MonoBehaviour {
 	
 	void OnTriggerStay (Collider other)
 	{
-		if (other.gameObject == player) {
+		if (other.gameObject == player && ai != null) {
 			ai.setColliderLevel(CHASE);
 		}
 	}

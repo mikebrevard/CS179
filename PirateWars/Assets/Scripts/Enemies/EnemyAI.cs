@@ -40,8 +40,11 @@ public class EnemyAI : MonoBehaviour {
 		wayPointIndex = -1;
 		distanceToDestination = 0;
 
-		//start enemy state
-		state = PATROL;
+		//start enemy state (clones only not original)
+		if (transform.tag.Equals ("Enemy"))
+			state = PATROL;
+		else
+			state = NOT_SET;
 
 		//this is a new attack sequence because there is no previous attack
 		isNewAttackSequence = true;

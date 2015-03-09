@@ -18,14 +18,14 @@ public class EnemyManager : MonoBehaviour
 		InvokeRepeating ("Spawn", spawnTime, spawnTime);
 		enemies = new System.Collections.Generic.List<GameObject>();
 
-		//start with 1 added because of the parent enemy
-		enemyIndex = 1f; 
+		//start with zero clones
+		enemyIndex = 0f; 
 	}
 	
 	
 	void Spawn ()
 	{
-		print ("Current Number of Enemies" + enemyIndex + "\tand limit " + enemyLimit);
+		//print ("Current Number of Enemies" + enemyIndex + "\tand limit " + enemyLimit);
 		// If the total number of enemies is reached
 		if(enemyIndex == enemyLimit)
 		{
@@ -38,11 +38,12 @@ public class EnemyManager : MonoBehaviour
 		enemyIndex++;
 
 		// Find a random index between zero and one less than the number of spawn points.
+		// TODO: force not to land on same spawn point
 		int spawnPointIndex = Random.Range (0, spawnPoints.Length);
 
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Transform clone  = (Transform) Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-		//clone.tag = "Hello World";
+		clone.tag = "Enemy";
 	}
 
 	public void EnemyDied ()
