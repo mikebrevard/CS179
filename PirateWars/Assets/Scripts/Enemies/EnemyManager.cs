@@ -17,12 +17,15 @@ public class EnemyManager : MonoBehaviour
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		InvokeRepeating ("Spawn", spawnTime, spawnTime);
 		enemies = new System.Collections.Generic.List<GameObject>();
-		enemyIndex = 0f;
+
+		//start with 1 added because of the parent enemy
+		enemyIndex = 1f; 
 	}
 	
 	
 	void Spawn ()
 	{
+		print ("Current Number of Enemies" + enemyIndex + "\tand limit " + enemyLimit);
 		// If the total number of enemies is reached
 		if(enemyIndex == enemyLimit)
 		{
@@ -40,5 +43,11 @@ public class EnemyManager : MonoBehaviour
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Transform clone  = (Transform) Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 		//clone.tag = "Hello World";
+	}
+
+	public void EnemyDied ()
+	{
+		print ("Enemt Died and lower index");
+		enemyIndex--;
 	}
 }

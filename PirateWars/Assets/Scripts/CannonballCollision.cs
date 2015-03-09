@@ -16,9 +16,13 @@ public class CannonballCollision : MonoBehaviour {
 
 	private void checkDestroyEnemy(EnemyHealth health) {
 		if (health.isDead ()) { 
-			Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
-			Screen.showCursor = true;
-			Application.LoadLevel ("Game Over");
+			//Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
+			// ... move the enemy down by the sinkSpeed per second.
+			GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
+			EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();
+			em.EnemyDied();
+			//Screen.showCursor = true;
+			//Application.LoadLevel ("Game Over");
 		}
 	}
 

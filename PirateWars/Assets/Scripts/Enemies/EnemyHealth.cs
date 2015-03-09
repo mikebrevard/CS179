@@ -4,7 +4,6 @@ using System.Collections;
 public class EnemyHealth : MonoBehaviour {
 
 	public float rotationSpeed;
-	public Transform enemyShip;
 	private GameObject player;	
 	private bool dead = false;
 	public float startingHealth = 100;                            // The amount of health the player starts the game with.
