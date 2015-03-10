@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour {
 	private bool dead = false;
 	public float startingHealth = 100;                            // The amount of health the player starts the game with.
 	public float currentHealth;   
+	public GameObject healthBar;
 
 	public bool isDead() {
 		return dead;
@@ -16,7 +17,7 @@ public class EnemyHealth : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag(Tags.player);
-		gameObject.renderer.material.color = Color.green;
+		healthBar.gameObject.renderer.material.color = Color.green;
 
 		currentHealth = startingHealth;
 	}
@@ -25,9 +26,9 @@ public class EnemyHealth : MonoBehaviour {
 		currentHealth = currentHealth - amount;
 
 		if (currentHealth <= 25) {
-			gameObject.renderer.material.color = Color.red;
+			healthBar.gameObject.renderer.material.color = Color.red;
 		} else if (currentHealth <= 50) {
-			gameObject.renderer.material.color = Color.yellow;
+			healthBar.gameObject.renderer.material.color = Color.yellow;
 		}
 
 		//check if dead
@@ -46,10 +47,10 @@ public class EnemyHealth : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		gameObject.transform.localScale = new Vector3(currentHealth,10.0f,10.0f);
-		if (player.transform.position - gameObject.transform.position != Vector3.zero) {
-			Quaternion rotation = Quaternion.LookRotation (player.transform.position - gameObject.transform.position);
-			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+		healthBar.gameObject.transform.localScale = new Vector3(currentHealth,10.0f,10.0f);
+		if (player.transform.position - healthBar.gameObject.transform.position != Vector3.zero) {
+			Quaternion rotation = Quaternion.LookRotation (player.transform.position - healthBar.gameObject.transform.position);
+			healthBar.transform.rotation = Quaternion.Slerp (healthBar.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 		}
 	}
 }

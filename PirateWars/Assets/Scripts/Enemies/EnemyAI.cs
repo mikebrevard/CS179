@@ -45,6 +45,7 @@ public class EnemyAI : MonoBehaviour {
 			state = PATROL;
 		else
 			state = NOT_SET;
+		print ("Enemy Created: " + transform.collider.GetInstanceID() + "\t" + transform.GetInstanceID() + "\t" + transform.gameObject.GetInstanceID());
 
 		//this is a new attack sequence because there is no previous attack
 		isNewAttackSequence = true;

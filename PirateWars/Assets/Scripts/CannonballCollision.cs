@@ -26,17 +26,28 @@ public class CannonballCollision : MonoBehaviour {
 		}
 	}
 
+	private void enemyHit(Collider other, int amount) {
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		foreach (GameObject enemy in enemies) {
+			if (enemy.transform.GetInstanceID().Equals(other.transform.parent.GetInstanceID())) {
+				EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
+				health.hitDection(amount);
+				//print ("Ship hit!");
+				checkDestroyEnemy(health);
+			}
+		}
+
+	}
+
 	void OnTriggerEnter(Collider other) 
 	{
 
 		if (other.tag == "EnemyShip") {
 			//call explosion animation
 			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
-			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
-			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
-			health.hitDetectionLarge ();
-			print ("Ship hit!");
-			checkDestroyEnemy(health);
+
+			//enemy hit for large damage
+			enemyHit(other, 25);
 
 			//despawn cannonball
 			Destroy (gameObject);
@@ -44,11 +55,10 @@ public class CannonballCollision : MonoBehaviour {
 		} else if (other.tag == "EnemySail") {
 			//call explosion animation
 			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
-			GameObject enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
-			EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
-			health.hitDetectionSmall ();
-
-			checkDestroyEnemy(health);
+			
+			//enemy hit for large damage
+			enemyHit(other, 10);
+			
 			//despawn cannonball
 			Destroy (gameObject);
 		}

@@ -48,7 +48,7 @@ public class EnemyManager : MonoBehaviour
 
 	public void EnemyDied ()
 	{
-		print ("Enemt Died and lower index");
+		print ("Enemy Died and lower index");
 		enemyIndex--;
 	}
 }
