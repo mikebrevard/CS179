@@ -28,7 +28,7 @@ public class EnemyChase : MonoBehaviour {
 	
 	void OnTriggerStay (Collider other)
 	{
-		if (other.gameObject == player && ai != null) {
+		if (other.gameObject == player) {
 			ai.setColliderLevel(CHASE);
 		}
 	}

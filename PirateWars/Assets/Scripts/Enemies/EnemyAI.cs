@@ -16,6 +16,8 @@ public class EnemyAI : MonoBehaviour {
 	public Transform[] patrolWayPoints;				
 	private int wayPointIndex;								
 	private Transform wayPoint;
+
+	//distance to destination (used for all movement)
 	private float distanceToDestination;
 
 	//state information
@@ -34,7 +36,6 @@ public class EnemyAI : MonoBehaviour {
 	void Start () {
 		//init player and enemy ship
 		player = GameObject.FindGameObjectWithTag(Tags.playerShip);
-		//ship = GameObject.FindGameObjectWithTag (tag);
 		
 		//set waypoint first waypoint and the distance to the waypoint is 0
 		wayPointIndex = -1;
@@ -45,7 +46,7 @@ public class EnemyAI : MonoBehaviour {
 			state = PATROL;
 		else
 			state = NOT_SET;
-		print ("Enemy Created: " + transform.collider.GetInstanceID() + "\t" + transform.GetInstanceID() + "\t" + transform.gameObject.GetInstanceID());
+		//print ("Enemy Created: " + transform.collider.GetInstanceID() + "\t" + transform.GetInstanceID() + "\t" + transform.gameObject.GetInstanceID());
 
 		//this is a new attack sequence because there is no previous attack
 		isNewAttackSequence = true;
@@ -79,9 +80,17 @@ public class EnemyAI : MonoBehaviour {
 		} 
 	}
 
+	private bool ToBoolean(int value) {
+		if (value == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public bool userInSight() {
 		//TODO: so that the opposite cannons do not fire
-		return true;
+		return ToBoolean(Random.Range (0, 1));
 	}
 
 	public bool isAttackState() {
@@ -158,8 +167,7 @@ public class EnemyAI : MonoBehaviour {
 		}
 		
 		//set attack position and destination
-		attackDestination = possible;
-
+		attackDestination = possible;		
 	}
 
 	void Attacking() {
@@ -177,30 +185,21 @@ public class EnemyAI : MonoBehaviour {
 	
 	void Patrolling ()
 	{
-		//state = PATROL;
 		ClearAttack ();
 
 		if (distanceToDestination == 0) {
-			//print ("State is NONE");
-			//state = "NONE";
-			//int rand = Random.Range(0, patrolWayPoints.Length - 1);
-			//while (rand == wayPointIndex) 
-			//	rand = Random.Range(0, patrolWayPoints.Length - 1);
-			//wayPointIndex = rand;
-			wayPointIndex++;
-			if (wayPointIndex == patrolWayPoints.Length) {
-				wayPointIndex = 0;
-			}
-			else {
-				wayPoint = patrolWayPoints[wayPointIndex];
-			}
+			int rand = Random.Range(0, patrolWayPoints.Length - 1);
+			while (rand == wayPointIndex) 
+				rand = Random.Range(0, patrolWayPoints.Length - 1);
+			wayPointIndex = rand;
+			wayPoint = patrolWayPoints[wayPointIndex];
 		}
 
 		Move (transform.position, wayPoint.position, patrolSpeed);
 	}
 	
 	void Move(Vector3 current, Vector3 destination, float speed) {
-		//print ("Move: " + current + "\tto " + destination);
+		//print ("Enemy " + transform.GetInstanceID() + "\tMove: " + current + "\tto " + destination);
 		if (destination - current != Vector3.zero) {
 			Quaternion rotation = Quaternion.LookRotation(destination - current);
 			transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);

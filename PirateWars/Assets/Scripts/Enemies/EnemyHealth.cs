@@ -6,7 +6,6 @@ public class EnemyHealth : MonoBehaviour {
 	public float rotationSpeed;
 	private GameObject player;	
 	private bool dead = false;
-	public float startingHealth = 100;                            // The amount of health the player starts the game with.
 	public float currentHealth;   
 	public GameObject healthBar;
 
@@ -18,8 +17,6 @@ public class EnemyHealth : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag(Tags.player);
 		healthBar.gameObject.renderer.material.color = Color.green;
-
-		currentHealth = startingHealth;
 	}
 
 	public void hitDection(int amount) {
@@ -34,6 +31,7 @@ public class EnemyHealth : MonoBehaviour {
 		//check if dead
 		if (currentHealth <= 0) {
 			dead = true;
+			currentHealth = 0f;
 		}
 	}
 

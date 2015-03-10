@@ -4,16 +4,15 @@ using System.Collections;
 public class EnemyCannon : MonoBehaviour {
 
 	public GameObject cannonball;
-	public Transform enemyBrains;
 	public float rateOfFire;
 	//float fireDelay;
 	public float speed;
-	private EnemyAI enemyAIscript;
+	public EnemyAI enemyAIscript;
 	private float fire;
 
 	// Use this for initializationf
 	void Start () {
-		enemyAIscript = enemyBrains.GetComponent<EnemyAI>();
+
 	}
 	
 	void Update()

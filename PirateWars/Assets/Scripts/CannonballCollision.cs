@@ -30,9 +30,17 @@ public class CannonballCollision : MonoBehaviour {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		foreach (GameObject enemy in enemies) {
 			if (enemy.transform.GetInstanceID().Equals(other.transform.parent.GetInstanceID())) {
+				//put enemy into the fight if they are not already there
+				EnemyAI ai = enemy.GetComponent<EnemyAI> ();
+				if (!ai.isAttackState()) {
+					ai.setColliderLevel("CHASE");
+				}
+
+				//enemy takes damage
 				EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
 				health.hitDection(amount);
-				//print ("Ship hit!");
+
+				//see if enemy should be killed
 				checkDestroyEnemy(enemy, health);
 			}
 		}
