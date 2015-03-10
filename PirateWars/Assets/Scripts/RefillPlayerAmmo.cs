@@ -24,9 +24,9 @@ public class RefillPlayerAmmo : MonoBehaviour {
 			Ammo ammo = ammoCounter.GetComponent<Ammo>();
 			ammo.refillAmmo(10);
 
-			//GameObject AddAmmo = GameObject.FindGameObjectWithTag("AddAmmoGUI");
-			//AmmoNotification a = AddAmmo.GetComponent<AmmoNotification>();
-			//a.printMessage(10,2);
+			GameObject AddAmmo = GameObject.FindGameObjectWithTag("AddAmmoGUI");
+			AmmoNotification a = AddAmmo.GetComponent<AmmoNotification>();
+			a.printMessage(10,2);
 
 			Destroy (gameObject);
 
