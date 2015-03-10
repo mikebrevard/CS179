@@ -14,11 +14,11 @@ public class CannonballCollision : MonoBehaviour {
 	
 	}
 
-	private void checkDestroyEnemy(EnemyHealth health) {
+	private void checkDestroyEnemy(GameObject enemy, EnemyHealth health) {
 		if (health.isDead ()) { 
-			//Destroy (GameObject.FindGameObjectWithTag ("Enemy"));
+			Destroy (enemy);
 			// ... move the enemy down by the sinkSpeed per second.
-			GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
+			//GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
 			EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();
 			em.EnemyDied();
 			//Screen.showCursor = true;
@@ -33,7 +33,7 @@ public class CannonballCollision : MonoBehaviour {
 				EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
 				health.hitDection(amount);
 				//print ("Ship hit!");
-				checkDestroyEnemy(health);
+				checkDestroyEnemy(enemy, health);
 			}
 		}
 
