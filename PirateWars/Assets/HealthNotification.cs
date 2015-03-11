@@ -2,13 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class AmmoNotification : MonoBehaviour {
+public class HealthNotification : MonoBehaviour {
 
-
-	//private float startTime;
 	private float stopTime;
 	private bool output;
 	private Text t;
+
 	// Use this for initialization
 	void Start () {
 		output = false;
@@ -23,10 +22,10 @@ public class AmmoNotification : MonoBehaviour {
 			output = false;
 		}
 	}
-
+	
 	public void printMessage(float value, float time)
 	{
-		t.text = "Cannonballs + " + value;
+		t.text = "Health + " + value + " HP";
 		output = true;
 		stopTime = Time.time + time;
 	}

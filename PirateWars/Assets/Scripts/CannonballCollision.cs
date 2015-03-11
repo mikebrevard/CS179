@@ -23,6 +23,9 @@ public class CannonballCollision : MonoBehaviour {
 			em.EnemyDied();
 			//Screen.showCursor = true;
 			//Application.LoadLevel ("Game Over");
+
+			Score score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+			score.addScore();
 		}
 	}
 

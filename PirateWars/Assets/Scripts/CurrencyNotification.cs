@@ -2,8 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class AmmoNotification : MonoBehaviour {
-
+public class CurrencyNotification : MonoBehaviour {
 
 	//private float startTime;
 	private float stopTime;
@@ -23,10 +22,10 @@ public class AmmoNotification : MonoBehaviour {
 			output = false;
 		}
 	}
-
+	
 	public void printMessage(float value, float time)
 	{
-		t.text = "Cannonballs + " + value;
+		t.text = "Currency + $" + value;
 		output = true;
 		stopTime = Time.time + time;
 	}

@@ -17,7 +17,7 @@ public class Currency : MonoBehaviour {
 		if(GameObject.FindGameObjectWithTag ("CurrencyGUI"))
 		{
 			currencyGUI = GameObject.FindGameObjectWithTag ("CurrencyGUI").GetComponent<Text> ();
-			currencyGUI.text = "$" + money;
+			currencyGUI.text = "Money: $" + money;
 		}
 	}
 

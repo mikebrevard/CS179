@@ -18,6 +18,7 @@ public class RefillPlayerAmmo : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
+
 		if(other.tag == "PlayerLoot")
 		{
 			GameObject ammoCounter = GameObject.FindGameObjectWithTag ("Ammo");
@@ -26,24 +27,13 @@ public class RefillPlayerAmmo : MonoBehaviour {
 
 			GameObject AddAmmo = GameObject.FindGameObjectWithTag("AddAmmoGUI");
 			AmmoNotification a = AddAmmo.GetComponent<AmmoNotification>();
-			a.printMessage(10,2);
+			a.printMessage(10,3);
+
+			CargoManager c = GameObject.FindGameObjectWithTag("CargoManager").GetComponent<CargoManager> ();
+			c.CargoLooted();
 
 			Destroy (gameObject);
 
 		}
 	}
-	/*
-	void Message (float delay) {
-
-		AddAmmo = GameObject.FindGameObjectWithTag("AddAmmoGUI").GetComponent<Text>();
-		float startTime = (0.0f + Time.time);
-		float stopTime = (delay + Time.time);
-		if(Time.time < stopTime)
-			AddAmmo.text = "+ 10 Cannonballs";
-		else
-		{
-			AddAmmo.text = "";
-			return;
-		}
-	}*/
 }

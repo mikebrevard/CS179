@@ -40,8 +40,8 @@ public class TerrainDestroyByContact : MonoBehaviour {
 		else if(other.tag == "EnemyShip" || other.tag == "Enemy")
 		{
 			print ("Collision");
-			enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
-			enemyHealth = enemy.GetComponent<EnemyHealth> ();
+			//enemy = GameObject.FindGameObjectWithTag ("HealthEnemyBar");
+			//enemyHealth = enemy.GetComponent<EnemyHealth> ();
 
 			float velocity = other.collider.rigidbody.velocity.x * other.collider.rigidbody.velocity.x
 				+ other.collider.rigidbody.velocity.z * other.collider.rigidbody.velocity.z;
@@ -56,7 +56,36 @@ public class TerrainDestroyByContact : MonoBehaviour {
 			{
 				other.collider.rigidbody.velocity = new Vector3((-bounce)*other.collider.rigidbody.velocity.x, 0, (-bounce)*other.collider.rigidbody.velocity.z) ;
 				//enemyHealth.hitDetectionSmall();
+				GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				foreach (GameObject enemy in enemies) {
+					if (enemy.transform.GetInstanceID().Equals(other.transform.parent.GetInstanceID())) {
+						//put enemy into the fight if they are not already there
+						EnemyAI ai = enemy.GetComponent<EnemyAI> ();
+						if (!ai.isAttackState()) {
+							ai.setColliderLevel("CHASE");
+						}
+						
+						//enemy takes damage
+						EnemyHealth health = enemy.GetComponent<EnemyHealth> ();
+						health.hitDection(10);
+						
+						//see if enemy should be killed
+						checkDestroyEnemy(enemy, health);
+					}
+				}
 			}
+		}
+	}
+
+	private void checkDestroyEnemy(GameObject enemy, EnemyHealth health) {
+		if (health.isDead ()) { 
+			Destroy (enemy);
+			// ... move the enemy down by the sinkSpeed per second.
+			//GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
+			EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();
+			em.EnemyDied();
+			//Screen.showCursor = true;
+			//Application.LoadLevel ("Game Over");
 		}
 	}
 }
