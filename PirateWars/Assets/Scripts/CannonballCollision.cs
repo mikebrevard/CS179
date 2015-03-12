@@ -4,6 +4,7 @@ using System.Collections;
 public class CannonballCollision : MonoBehaviour {
 	public GameObject explosion;
 	public GameObject explosion2;
+	public GameObject cargo;
 	
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,9 @@ public class CannonballCollision : MonoBehaviour {
 
 			Score score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
 			score.addScore();
+			Vector3 pos = new Vector3(gameObject.rigidbody.position.x, 31.4f, gameObject.rigidbody.position.z);
+			Quaternion rot = Quaternion.Euler(90, 0, gameObject.rigidbody.rotation.z);
+			Instantiate (cargo, pos, rot);
 		}
 	}
 
