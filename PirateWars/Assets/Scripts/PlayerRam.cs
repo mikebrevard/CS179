@@ -5,6 +5,7 @@ public class PlayerRam : MonoBehaviour {
 
 	GameObject player;
 	PlayerHealth playerHealth;
+	public GameObject cargo;
 
 	void OnTriggerEnter(Collider other) 
 	{
@@ -54,6 +55,10 @@ public class PlayerRam : MonoBehaviour {
 			//Application.LoadLevel ("Game Over");
 			Score score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
 			score.addScore();
+
+			Vector3 pos = new Vector3(gameObject.rigidbody.position.x, 31.4f, gameObject.rigidbody.position.z);
+			Quaternion rot = Quaternion.Euler(90, 0, gameObject.rigidbody.rotation.z);
+			Instantiate (cargo, pos, rot);
 		}
 	}
 }
