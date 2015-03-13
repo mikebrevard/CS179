@@ -129,7 +129,8 @@ public class Pausedmenu : MonoBehaviour {
 			Currency gold = currency.GetComponent<Currency>();
 
 
-			CannonSelect cannon = GameObject.FindGameObjectWithTag("CannonSelect").GetComponent<CannonSelect> ();
+			CannonSelect cannon = GameObject.FindGameObjectWithTag("CannonLeft").GetComponent<CannonSelect> ();
+			cannon.setspread();
 			if(gold.checkCurrency() > 99)
 			{
 				gold.spendCurrency(100);
