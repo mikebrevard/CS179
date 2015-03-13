@@ -23,7 +23,7 @@ public class CannonballCollision : MonoBehaviour {
 			// ... move the enemy down by the sinkSpeed per second.
 			//GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
 			EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();
-			em.EnemyDied();
+			em.EnemyDied(enemy);
 			//Screen.showCursor = true;
 			//Application.LoadLevel ("Game Over");
 

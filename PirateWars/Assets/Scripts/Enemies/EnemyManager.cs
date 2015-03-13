@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
 		//start with zero clones
 		enemyIndex = 0f; 
 	}
-	
+
 	
 	void Spawn ()
 	{
@@ -44,10 +44,15 @@ public class EnemyManager : MonoBehaviour
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Transform clone  = (Transform) Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 		clone.tag = "Enemy";
+		enemies.Add (clone.gameObject);
 	}
 
-	public void EnemyDied ()
+	public void EnemyDied (GameObject e)
 	{
+		//decrease enemy count
 		enemyIndex--;
+
+		//remove enemy from list
+		enemies.Remove (e);
 	}
 }
