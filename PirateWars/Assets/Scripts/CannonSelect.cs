@@ -41,5 +41,9 @@ public class CannonSelect : MonoBehaviour {
 		{
 			SelectCannon (4);
 		}
+		if (Input.GetKeyDown ("6")) 
+		{
+			SelectCannon (5);
+		}
 	}
 }
