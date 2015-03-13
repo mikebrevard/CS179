@@ -20,13 +20,15 @@ public class RefillPlayerHealth : MonoBehaviour {
 	{
 		if(other.tag == "PlayerLoot")
 		{
+			int value = Random.Range (10,20);
+
 			GameObject player = GameObject.FindGameObjectWithTag ("Player");
 			PlayerHealth playerHealth = player.GetComponent <PlayerHealth> ();
-			playerHealth.AddHealth(25);
+			playerHealth.AddHealth(value);
 
 			GameObject AddHealth = GameObject.FindGameObjectWithTag("AddHealthGUI");
 			HealthNotification health = AddHealth.GetComponent<HealthNotification>();
-			health.printMessage(100,3);
+			health.printMessage(value,3);
 
 			Destroy (gameObject);
 

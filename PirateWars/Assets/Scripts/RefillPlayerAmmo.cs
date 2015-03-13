@@ -21,13 +21,15 @@ public class RefillPlayerAmmo : MonoBehaviour {
 
 		if(other.tag == "PlayerLoot")
 		{
+			int value = Random.Range (5,10);
+
 			GameObject ammoCounter = GameObject.FindGameObjectWithTag ("Ammo");
 			Ammo ammo = ammoCounter.GetComponent<Ammo>();
-			ammo.refillAmmo(10);
+			ammo.refillAmmo(value);
 
 			GameObject AddAmmo = GameObject.FindGameObjectWithTag("AddAmmoGUI");
 			AmmoNotification a = AddAmmo.GetComponent<AmmoNotification>();
-			a.printMessage(10,3);
+			a.printMessage(value,3);
 
 			CargoManager c = GameObject.FindGameObjectWithTag("CargoManager").GetComponent<CargoManager> ();
 			c.CargoLooted();
