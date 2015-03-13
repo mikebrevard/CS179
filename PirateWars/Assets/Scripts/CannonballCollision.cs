@@ -5,6 +5,8 @@ public class CannonballCollision : MonoBehaviour {
 	public GameObject explosion;
 	public GameObject explosion2;
 	public GameObject cargo;
+	public int shipDamage;
+	public int sailDamage;
 	
 	// Use this for initialization
 	void Start () {
@@ -62,7 +64,7 @@ public class CannonballCollision : MonoBehaviour {
 			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
 
 			//enemy hit for large damage
-			enemyHit(other, 25);
+			enemyHit(other, shipDamage);
 
 			//despawn cannonball
 			Destroy (gameObject);
@@ -72,7 +74,7 @@ public class CannonballCollision : MonoBehaviour {
 			Instantiate (explosion, gameObject.transform.position, other.transform.rotation);
 			
 			//enemy hit for large damage
-			enemyHit(other, 10);
+			enemyHit(other, sailDamage);
 			
 			//despawn cannonball
 			Destroy (gameObject);

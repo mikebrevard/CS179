@@ -4,36 +4,42 @@ using System.Collections;
 
 public class CannonSelect : MonoBehaviour {
 
-	public GameObject weapon1;
-	public GameObject weapon2;
-	public GameObject weapon3;
+	public GameObject[] weapons;
+
+	void SelectCannon(int index)
+	{
+		foreach (GameObject n in weapons) {
+			n.SetActive (false);
+				}
+		weapons[index].SetActive (true);
+	}
 
 	// Use this for initialization
 	void Start () {
-		weapon3.SetActive (false);
-		weapon2.SetActive (false);
-		weapon1.SetActive (true);
+		SelectCannon (0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("1")) 
 		{
-			weapon3.SetActive (false);
-			weapon2.SetActive (false);
-			weapon1.SetActive (true);
+			SelectCannon (0);
 		}
 		if (Input.GetKeyDown ("2")) 
 		{
-			weapon3.SetActive (false);
-			weapon1.SetActive (false);
-			weapon2.SetActive (true);
+			SelectCannon (1);
 		}
 		if (Input.GetKeyDown ("3")) 
 		{
-			weapon1.SetActive (false);
-			weapon2.SetActive (false);
-			weapon3.SetActive (true);
+			SelectCannon (2);
+		}
+		if (Input.GetKeyDown ("4")) 
+		{
+			SelectCannon (3);
+		}
+		if (Input.GetKeyDown ("5")) 
+		{
+			SelectCannon (4);
 		}
 	}
 }
