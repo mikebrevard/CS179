@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour
 	private System.Collections.Generic.List<GameObject> enemies;			// The enemies currently on the map
 	private float enemyIndex;
 	private float minimumDistance = 25f;
+	private Score score;
 	
 	
 	void Start ()
@@ -21,6 +22,13 @@ public class EnemyManager : MonoBehaviour
 
 		//start with zero clones
 		enemyIndex = 0f; 
+
+		//get score 
+		score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+	}
+
+	void Update() {
+		enemyLimit = 2f + (score.getScore () / 3);
 	}
 
 	
