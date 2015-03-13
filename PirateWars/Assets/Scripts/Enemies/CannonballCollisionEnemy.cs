@@ -29,7 +29,7 @@ public class CannonballCollisionEnemy : MonoBehaviour {
 			playerHealth.TakeDamage(20);
 			
 			//call explosion animation
-			Instantiate(explosion, other.transform.position, other.transform.rotation);
+			//Instantiate(explosion, other.transform.position, other.transform.rotation);
 			//Despawn cannonball
 			Destroy (gameObject);
 			//Application.LoadLevel("Game Lost");
@@ -43,7 +43,7 @@ public class CannonballCollisionEnemy : MonoBehaviour {
 			playerHealth.TakeDamage(10);
 			
 			//call explosion animation
-			Instantiate(explosion, other.transform.position, other.transform.rotation);
+			//Instantiate(explosion, other.transform.position, other.transform.rotation);
 			//Despawn cannonball
 			Destroy (gameObject);
 		}
@@ -51,7 +51,7 @@ public class CannonballCollisionEnemy : MonoBehaviour {
 		else if (other.tag == "Terrain")
 		{
 			//call explosion animation for terrain
-			Instantiate(explosion2, gameObject.transform.position, other.transform.rotation);
+			//Instantiate(explosion2, gameObject.transform.position, other.transform.rotation);
 			//despawn cannonball
 			Destroy (gameObject);
 		}
