@@ -40,6 +40,9 @@ public class EnemyManager : MonoBehaviour
 		// Find a random index between zero and one less than the number of spawn points.
 		// TODO: force not to land on same spawn point
 		int spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
+		foreach (GameObject e in enemies) {
+			print ("Position of Enemy: "  + e.transform.position);
+		}
 
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Transform clone  = (Transform) Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);

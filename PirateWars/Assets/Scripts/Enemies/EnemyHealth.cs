@@ -20,7 +20,6 @@ public class EnemyHealth : MonoBehaviour {
 	}
 
 	public void hitDection(int amount) {
-		print ("Hit Detected! " + currentHealth + "\t" + amount);
 		currentHealth = currentHealth - amount;
 
 		if (currentHealth <= 25) {
