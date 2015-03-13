@@ -54,7 +54,7 @@ public class BoatController2 : MonoBehaviour {
 			speed = minSpeed;
 		}
 		transform.Translate (Vector3.forward * speed * Time.deltaTime);
-		if (speed >= 5 || speed >= -5)
+		if (speed >= 5 || speed <= -5)
 		{
 			Instantiate(water, water_left.transform.position, water_left.transform.rotation);
 			Instantiate(water, water_right.transform.position, water_right.transform.rotation);
