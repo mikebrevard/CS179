@@ -36,7 +36,11 @@ public class PlayerHealth : MonoBehaviour
 			Death ();
 		}
 	}
-
+	public void MaxHealth (int amount)
+	{
+		maxHealth += amount;
+		currentHealth = maxHealth;
+	}
 	public void AddHealth (int amount)
 	{
 		currentHealth += amount;

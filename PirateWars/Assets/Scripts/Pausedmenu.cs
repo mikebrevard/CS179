@@ -5,10 +5,13 @@ public class Pausedmenu : MonoBehaviour {
 	private bool isPause = false;
 	private bool isInShop = false;
 	private bool isQuit = false;
-	public Rect rect = new Rect(Screen.width / 2, Screen.height / 2, 200, 200);
+	public Rect rect = new Rect(Screen.width / 2, Screen.height / 2 + 300, 200, 500);
+
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+
 	}
 	
 	// Update is called once per frame
@@ -92,6 +95,20 @@ public class Pausedmenu : MonoBehaviour {
 		{
 			isPause = false;
 			Time.timeScale = 1;
+		}
+	
+		if(GUILayout.Button("+20 maxhealth"))
+		{
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			PlayerHealth player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth> ();
+			if (gold.checkCurrency() > 99)
+			{
+				gold.addCurrency(100);
+				player.MaxHealth(20);
+			}
+			//
+			
 		}
 	}
 
