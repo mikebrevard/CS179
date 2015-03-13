@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
 	public float enemyLimit;			// The number of enemies allowed on the map at a given time
 	private System.Collections.Generic.List<GameObject> enemies;			// The enemies currently on the map
 	private float enemyIndex;
+	private float minimumDistance = 25f;
 	
 	
 	void Start ()
@@ -37,12 +38,18 @@ public class EnemyManager : MonoBehaviour
 		//enemies.Add (enemy);
 		enemyIndex++;
 
-		// Find a random index between zero and one less than the number of spawn points.
-		// TODO: force not to land on same spawn point
-		int spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
-		foreach (GameObject e in enemies) {
-			print ("Position of Enemy: "  + e.transform.position);
+		
+		// Find a random index between zero and one less than the number of spawn points
+		int spawnPointIndex = -1;
+		while (spawnPointIndex == -1) {
+			spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
+			foreach (GameObject e in enemies) {
+				if (Vector3.Distance (e.transform.position, spawnPoints[spawnPointIndex].position) < minimumDistance) {
+					spawnPointIndex = -1;
+				}
+			}
 		}
+
 
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Transform clone  = (Transform) Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
