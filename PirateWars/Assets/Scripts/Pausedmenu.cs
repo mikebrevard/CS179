@@ -5,6 +5,12 @@ public class Pausedmenu : MonoBehaviour {
 	private bool isPause = false;
 	private bool isInShop = false;
 	private bool isQuit = false;
+	private bool enoughgold = true;
+
+	private bool bought_spread = false;
+	private bool bought_sniper = false;
+	private bool bought_burst = false;
+	private bool bought_auto = false;
 	public Rect rect = new Rect(Screen.width / 2, Screen.height / 2 + 300, 200, 500);
 
 
@@ -36,7 +42,11 @@ public class Pausedmenu : MonoBehaviour {
 	{
 		if (isPause) 
 		{
-			if (isInShop)
+			if (!enoughgold)
+			{
+				GUI.Window(0, rect, not_enough_gold, "Not Enough Gold");
+			}
+			else if (isInShop)
 			{
 				GUI.Window(0, rect, ShopMenu, "Shop Menu");
 			}
@@ -95,20 +105,61 @@ public class Pausedmenu : MonoBehaviour {
 		{
 			isPause = false;
 			Time.timeScale = 1;
+			isInShop = false;
 		}
 	
-		if(GUILayout.Button("+20 maxhealth"))
+		if(GUILayout.Button("+20 health for 100gold"))
 		{
 			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
 			Currency gold = currency.GetComponent<Currency>();
 			PlayerHealth player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth> ();
 			if (gold.checkCurrency() > 99)
 			{
-				gold.addCurrency(100);
-				player.MaxHealth(20);
+				gold.spendCurrency(100);
+				player.AddHealth(20);
 			}
-			//
+			else
+			{
+				enoughgold = false;
+			}
+		}
+		if (GUILayout.Button ("spread cannon 100")) 
+		{
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+
+
+			CannonSelect cannon = GameObject.FindGameObjectWithTag("CannonSelect").GetComponent<CannonSelect> ();
+			if(gold.checkCurrency() > 99)
+			{
+				gold.spendCurrency(100);
+				cannon.setspread();
+			}
+			else
+			{
+				enoughgold = false;
+			}
+		}
+		if (GUILayout.Button ("Sniper cannon 200")) 
+		{
 			
+		}
+		if (GUILayout.Button ("Burst cannon 400")) 
+		{
+			
+		}
+		if (GUILayout.Button ("auto cannon 800")) 
+		{
+			
+		}
+
+	}
+	void not_enough_gold(int windowID)
+	{
+		if(GUILayout.Button("Ok"))
+		{
+			isInShop = true;
+			enoughgold = true;
 		}
 	}
 
