@@ -89,8 +89,7 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 	public bool userInSight() {
-		//TODO: so that the opposite cannons do not fire
-		return ToBoolean(Random.Range (0, 1));
+		return true;
 	}
 
 	public bool isAttackState() {
