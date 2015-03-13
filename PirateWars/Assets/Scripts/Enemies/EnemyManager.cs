@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
 	{
 		//print ("Current Number of Enemies" + enemyIndex + "\tand limit " + enemyLimit);
 		// If the total number of enemies is reached
-		if(enemyIndex == enemyLimit)
+		if(enemies.Count == enemyLimit)
 		{
 			// ... exit the function.
 			return;
@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour
 
 		//add enemy to list
 		//enemies.Add (enemy);
-		enemyIndex++;
+		//enemyIndex++;
 
 		
 		// Find a random index between zero and one less than the number of spawn points
@@ -60,7 +60,7 @@ public class EnemyManager : MonoBehaviour
 	public void EnemyDied (GameObject e)
 	{
 		//decrease enemy count
-		enemyIndex--;
+	//	enemyIndex--;
 
 		//remove enemy from list
 		enemies.Remove (e);
