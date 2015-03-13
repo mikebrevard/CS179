@@ -5,7 +5,7 @@ using System.Collections;
 public class Currency : MonoBehaviour {
 
 	private Text currencyGUI;
-	int money = 0;
+	public int money = 0;
 
 	// Use this for initialization
 	void Awake(){

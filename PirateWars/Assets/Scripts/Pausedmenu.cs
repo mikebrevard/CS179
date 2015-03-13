@@ -11,13 +11,13 @@ public class Pausedmenu : MonoBehaviour {
 	private bool bought_sniper = false;
 	private bool bought_burst = false;
 	private bool bought_auto = false;
+	private bool bought_mini = false;
 	public Rect rect = new Rect(Screen.width / 2, Screen.height / 2 + 300, 200, 500);
-
-
+	
 	// Use this for initialization
 	void Start () 
 	{
-
+		Screen.showCursor = false;
 	}
 	
 	// Update is called once per frame
@@ -127,14 +127,10 @@ public class Pausedmenu : MonoBehaviour {
 		{
 			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
 			Currency gold = currency.GetComponent<Currency>();
-
-
-			CannonSelect cannon = GameObject.FindGameObjectWithTag("CannonLeft").GetComponent<CannonSelect> ();
-			cannon.setspread();
 			if(gold.checkCurrency() > 99)
 			{
 				gold.spendCurrency(100);
-				cannon.setspread();
+				setspread();
 			}
 			else
 			{
@@ -143,17 +139,61 @@ public class Pausedmenu : MonoBehaviour {
 		}
 		if (GUILayout.Button ("Sniper cannon 200")) 
 		{
-			
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 199)
+			{
+				gold.spendCurrency(200);
+				setsniper();
+			}
+			else
+			{
+				enoughgold = false;
+			}
 		}
 		if (GUILayout.Button ("Burst cannon 400")) 
 		{
-			
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 399)
+			{
+				gold.spendCurrency(400);
+				setburst();
+			}
+			else
+			{
+				enoughgold = false;
+			}
 		}
-		if (GUILayout.Button ("auto cannon 800")) 
+		if (GUILayout.Button ("Auto cannon 800")) 
 		{
-			
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 799)
+			{
+				gold.spendCurrency(800);
+				setauto();
+			}
+			else
+			{
+				enoughgold = false;
+			}
 		}
-
+		if (GUILayout.Button ("Mini cannon 2000")) 
+		{
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 1999)
+			{
+				gold.spendCurrency(2000);
+				setmini();
+			}
+			else
+			{
+				enoughgold = false;
+			}
+		}
+		
 	}
 	void not_enough_gold(int windowID)
 	{
@@ -164,4 +204,45 @@ public class Pausedmenu : MonoBehaviour {
 		}
 	}
 
+	public void setspread()
+	{
+		bought_spread = true;
+	}
+	public void setsniper()
+	{
+		bought_sniper = true;
+	}
+	public void setburst()
+	{
+		bought_burst = true;
+	}
+	public void setauto()
+	{
+		bought_auto = true;
+	}
+	public void setmini()
+	{
+		bought_mini = true;
+	}
+
+	public bool getspread()
+	{
+		return bought_spread;
+	}
+	public bool getsniper()
+	{
+		return bought_sniper;
+	}
+	public bool getburst()
+	{
+		return bought_burst;
+	}
+	public bool getauto()
+	{
+		return bought_auto;
+	}
+	public bool getmini()
+	{
+		return bought_mini;
+	}
 }
