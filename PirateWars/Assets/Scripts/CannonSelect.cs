@@ -5,12 +5,16 @@ using System.Collections;
 public class CannonSelect : MonoBehaviour {
 
 	public GameObject[] weapons;
-
+	private bool spread_bough = false;
+	private bool sniper_bough = false;
+	private bool burst_bough = false;
+	private bool auto_bough = false;
 	void SelectCannon(int index)
 	{
-		foreach (GameObject n in weapons) {
+		foreach (GameObject n in weapons) 
+		{
 			n.SetActive (false);
-				}
+		}
 		weapons[index].SetActive (true);
 	}
 
@@ -18,7 +22,22 @@ public class CannonSelect : MonoBehaviour {
 	void Start () {
 		SelectCannon (0);
 	}
-	
+	public void setspread()
+	{
+		spread_bough = true;
+	}
+	public void setsniper()
+	{
+		sniper_bough = true;
+	}
+	public void setburs()
+	{
+		burst_bough = true;
+	}
+	public void setauto()
+	{
+		auto_bough = true;
+	}
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("1")) 
