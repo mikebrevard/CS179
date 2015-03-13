@@ -26,14 +26,14 @@ public class BoatController2 : MonoBehaviour {
 		if (Input.GetKey (KeyCode.A)) 
 		{
 			if (speed >= 1 || speed <= -1) {
-				transform.Rotate (Vector3.down * rotationSpeed * Time.deltaTime);
+				transform.Rotate (Vector3.down * rotationSpeed * Time.deltaTime * speed);
 			}
 		}
 		if (Input.GetKey (KeyCode.D)) 
 		{
 			if(speed >= 1 || speed <= -1)
 			{
-				transform.Rotate (Vector3.up * rotationSpeed * Time.deltaTime);
+				transform.Rotate (Vector3.up * rotationSpeed * Time.deltaTime * speed);
 			}
 		}
 		if (speed > 0) 
