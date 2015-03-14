@@ -5,10 +5,6 @@ Direct3D:
     Renderer: NVIDIA GeForce GT 640M            (ID=0xfd2)
     Vendor:   NVIDIA
     VRAM:     1990 MB
-Default GameObject Tag: Player already registered
- 
-(Filename:  Line: 67)
-
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -22,131 +18,26 @@ Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\Asse
 Loading C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.088 seconds
+- Completed reload, in  0.060 seconds
 desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\System.Core.dll (this message is harmless)
-WARNING: Shader Unsupported: 'Hidden/TerrainEngine/Details/BillboardWavingDoublePass' - Pass '' shader state not supported
 Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\System.dll (this message is harmless)
-Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\Boo.Lang.dll (this message is harmless)
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
+WARNING: Shader Unsupported: 'Hidden/TerrainEngine/Details/BillboardWavingDoublePass' - Pass '' shader state not supported
+The referenced script on this Behaviour is missing!
  
-(Filename:  Line: -1)
+(Filename:  Line: 1788)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
+UnloadTime: 3.443205 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1311.
+Total: 2.000800 ms (FindLiveObjects: 0.056445 ms CreateObjectMapping: 0.017726 ms MarkObjects: 0.247242 ms  DeleteObjects: 1.257206 ms)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
+WARNING: Shader Unsupported: 'Hidden/TerrainEngine/Details/BillboardWavingDoublePass' - Pass '' shader state not supported
+Level 'Game Lost' (-1) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...
  
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at cannonscript.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
+(Filename:  Line: 275)
 
