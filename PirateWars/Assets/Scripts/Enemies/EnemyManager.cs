@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
 	public float enemyLimit;			// The number of enemies allowed on the map at a given time
 	private System.Collections.Generic.List<GameObject> enemies;			// The enemies currently on the map
 	private float enemyIndex;
-	private float minimumDistance = 25f;
+	private float minimumDistance = 50f;
 	private Score score;
 	
 	
