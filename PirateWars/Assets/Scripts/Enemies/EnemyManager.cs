@@ -49,13 +49,15 @@ public class EnemyManager : MonoBehaviour
 		
 		// Find a random index between zero and one less than the number of spawn points
 		int spawnPointIndex = -1;
-		while (spawnPointIndex == -1) {
+		int attempts = 100;
+		while (spawnPointIndex == -1 && attempts > 0) {
 			spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
 			foreach (GameObject e in enemies) {
 				if (Vector3.Distance (e.transform.position, spawnPoints[spawnPointIndex].position) < minimumDistance) {
 					spawnPointIndex = -1;
 				}
 			}
+			attempts = attempts - 1;
 		}
 
 
