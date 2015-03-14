@@ -3,9 +3,9 @@ using System.Collections;
 
 
 public class CannonSelect : MonoBehaviour {
-
+	
 	public GameObject[] weapons;
-
+	
 	void SelectCannon(int index)
 	{
 		foreach (GameObject n in weapons) 
@@ -14,12 +14,12 @@ public class CannonSelect : MonoBehaviour {
 		}
 		weapons[index].SetActive (true);
 	}
-
+	
 	// Use this for initialization
 	void Start () {
 		SelectCannon (0);
 	}
-
+	
 	// Update is called once per frame
 	void Update () 
 	{

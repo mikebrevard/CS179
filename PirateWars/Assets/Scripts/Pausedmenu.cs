@@ -6,7 +6,7 @@ public class Pausedmenu : MonoBehaviour {
 	private bool isInShop = false;
 	private bool isQuit = false;
 	private bool enoughgold = true;
-
+	
 	private bool bought_spread = false;
 	private bool bought_sniper = false;
 	private bool bought_burst = false;
@@ -58,7 +58,7 @@ public class Pausedmenu : MonoBehaviour {
 			{
 				GUI.Window(0, rect, TheMainMenu, "Pause Menu");
 			}
-
+			
 		}
 	}
 	void TheMainMenu (int windowID)
@@ -97,7 +97,7 @@ public class Pausedmenu : MonoBehaviour {
 		{
 			isQuit = false;
 		}
-
+		
 	}
 	void ShopMenu (int windowID)
 	{
@@ -107,7 +107,7 @@ public class Pausedmenu : MonoBehaviour {
 			Time.timeScale = 1;
 			isInShop = false;
 		}
-	
+		
 		if(GUILayout.Button("+20 health for 100gold"))
 		{
 			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
@@ -125,87 +125,72 @@ public class Pausedmenu : MonoBehaviour {
 		}
 		if (GUILayout.Button ("spread cannon 100")) 
 		{
-			if (!bought_spread)
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 99)
 			{
-				GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
-				Currency gold = currency.GetComponent<Currency>();
-				if(gold.checkCurrency() > 99)
-				{
-					gold.spendCurrency(100);
-					bought_spread = true;
-				}
-				else
-				{
-					enoughgold = false;
-				}
+				gold.spendCurrency(100);
+				setspread();
+			}
+			else
+			{
+				enoughgold = false;
 			}
 		}
 		if (GUILayout.Button ("Sniper cannon 200")) 
 		{
-			if (!bought_sniper)
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 199)
 			{
-				GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
-				Currency gold = currency.GetComponent<Currency>();
-				if(gold.checkCurrency() > 199)
-				{
-					gold.spendCurrency(200);
-					bought_sniper = true;
-				}
-				else
-				{
-					enoughgold = false;
-				}
+				gold.spendCurrency(200);
+				setsniper();
+			}
+			else
+			{
+				enoughgold = false;
 			}
 		}
 		if (GUILayout.Button ("Burst cannon 400")) 
 		{
-			if (!bought_burst)
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 399)
 			{
-				GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
-				Currency gold = currency.GetComponent<Currency>();
-				if(gold.checkCurrency() > 399)
-				{
-					gold.spendCurrency(400);
-					bought_burst = true;
-				}
-				else
-				{
-					enoughgold = false;
-				}
+				gold.spendCurrency(400);
+				setburst();
+			}
+			else
+			{
+				enoughgold = false;
 			}
 		}
 		if (GUILayout.Button ("Auto cannon 800")) 
 		{
-			if (!bought_auto)
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 799)
 			{
-				GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
-				Currency gold = currency.GetComponent<Currency>();
-				if(gold.checkCurrency() > 799)
-				{
-					gold.spendCurrency(800);
-					bought_auto = true;
-				}
-				else
-				{
-					enoughgold = false;
-				}
+				gold.spendCurrency(800);
+				setauto();
+			}
+			else
+			{
+				enoughgold = false;
 			}
 		}
 		if (GUILayout.Button ("Mini cannon 2000")) 
 		{
-			if (!bought_mini)
+			GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
+			Currency gold = currency.GetComponent<Currency>();
+			if(gold.checkCurrency() > 1999)
 			{
-				GameObject currency = GameObject.FindGameObjectWithTag ("Currency");
-				Currency gold = currency.GetComponent<Currency>();
-				if(gold.checkCurrency() > 1999)
-				{
-					gold.spendCurrency(2000);
-					bought_mini = true;
-				}
-				else
-				{
-					enoughgold = false;
-				}
+				gold.spendCurrency(2000);
+				setmini();
+			}
+			else
+			{
+				enoughgold = false;
 			}
 		}
 		
@@ -218,7 +203,28 @@ public class Pausedmenu : MonoBehaviour {
 			enoughgold = true;
 		}
 	}
-
+	
+	public void setspread()
+	{
+		bought_spread = true;
+	}
+	public void setsniper()
+	{
+		bought_sniper = true;
+	}
+	public void setburst()
+	{
+		bought_burst = true;
+	}
+	public void setauto()
+	{
+		bought_auto = true;
+	}
+	public void setmini()
+	{
+		bought_mini = true;
+	}
+	
 	public bool getspread()
 	{
 		return bought_spread;

@@ -19,9 +19,6 @@ public class whale : MonoBehaviour {
 	private float distanceToDestination;
 	
 	//state information
-	private string PATROL = "PATROL";
-	private string CHASE = "CHASE";
-	private string ATTACK = "ATTACK";
 	private string state;
 
 	//attack information
