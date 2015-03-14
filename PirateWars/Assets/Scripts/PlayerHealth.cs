@@ -53,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
 	void Death ()
 	{
 		isDead = true;
+		Screen.showCursor = true;
 		Application.LoadLevel("Game Lost");
 		//Application.LoadLevel("Game Main");
 		// Turn off the movement and shooting scripts.
