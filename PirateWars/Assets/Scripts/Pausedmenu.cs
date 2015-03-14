@@ -67,6 +67,7 @@ public class Pausedmenu : MonoBehaviour {
 		{
 			isPause = false;
 			Time.timeScale = 1;
+			Screen.showCursor = false;
 		}
 		if(GUILayout.Button("Shop"))
 		{
@@ -106,6 +107,7 @@ public class Pausedmenu : MonoBehaviour {
 			isPause = false;
 			Time.timeScale = 1;
 			isInShop = false;
+			Screen.showCursor = false;
 		}
 		
 		if(GUILayout.Button("+20 health for 100gold"))
