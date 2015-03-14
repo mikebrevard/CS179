@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour {
 	private string CHASE = "CHASE";
 	private string ATTACK = "ATTACK";
 	private string NOT_SET = "NOT_SET";
+	private string DEAD = "DEAD";
 	private string state;
 
 	//attack information
@@ -32,6 +33,8 @@ public class EnemyAI : MonoBehaviour {
 	private float minumuDistance = 25;
 	private bool isNewAttackSequence;
 	private Vector3 attackDestination;
+
+	private float deathTimer;
 
 	void Start () {
 		//init player and enemy ship
@@ -57,27 +60,37 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 	public void setColliderLevel(string c) {
-		if (c.Equals (ATTACK)) {
-			state = ATTACK;
-			//to prevent enemy stopping (jumping from attack and chase
-		} else if (c.Equals (CHASE) && !state.Equals(ATTACK)) { 
-			state = CHASE;
+
+		if (c.Equals (DEAD) || state == DEAD) {
+				deathTimer = Time.time + 10;
+				state = DEAD;
+		} else if(c.Equals (NOT_SET)) {
+				state = NOT_SET;
+		} else if (c.Equals (ATTACK)) {
+				state = ATTACK;
+				//to prevent enemy stopping (jumping from attack and chase
+		} else if (c.Equals (CHASE) && !state.Equals (ATTACK)) { 
+				state = CHASE;
 		} else if (c.Equals (PATROL)) {
-			state = PATROL;
-		}
+				state = PATROL;
+		} 
 		Update ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		//print (state);
 		if (state.Equals (ATTACK)) {
 			Attacking();
 		} else if (state.Equals(CHASE)) {
 			Chasing();
 		} else if (state.Equals (PATROL)) {
 			Patrolling ();
-		} 
+		} else if (state.Equals (DEAD)) {
+			gameObject.transform.Translate (-Vector3.up * 2f * Time.deltaTime);
+			gameObject.transform.Rotate (Vector3.forward * 4f * Time.deltaTime);
+			if(Time.time > deathTimer)
+				Destroy (gameObject);
+		}
 	}
 
 	private bool ToBoolean(int value) {

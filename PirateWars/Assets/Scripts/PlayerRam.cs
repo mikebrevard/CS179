@@ -46,7 +46,9 @@ public class PlayerRam : MonoBehaviour {
 
 	private void checkDestroyEnemy(GameObject enemy, EnemyHealth health) {
 		if (health.isDead ()) { 
-			Destroy (enemy);
+			EnemyAI ai = enemy.GetComponent<EnemyAI> ();
+			ai.setColliderLevel("DEAD");
+			//Destroy (enemy);
 			// ... move the enemy down by the sinkSpeed per second.
 			//GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
 			EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();

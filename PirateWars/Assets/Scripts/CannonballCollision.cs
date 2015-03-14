@@ -7,9 +7,12 @@ public class CannonballCollision : MonoBehaviour {
 	public GameObject cargo;
 	public int shipDamage;
 	public int sailDamage;
+	private bool dead;
+	private float sinkTimer;
 	
 	// Use this for initialization
 	void Start () {
+		dead = false;
 	}
 	
 	// Update is called once per frame
@@ -19,19 +22,22 @@ public class CannonballCollision : MonoBehaviour {
 
 	private void checkDestroyEnemy(GameObject enemy, EnemyHealth health) {
 		if (health.isDead ()) { 
-			Destroy (enemy);
-			// ... move the enemy down by the sinkSpeed per second.
-			//GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
-			EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();
-			em.EnemyDied(enemy);
-			//Screen.showCursor = true;
-			//Application.LoadLevel ("Game Over");
+				EnemyAI ai = enemy.GetComponent<EnemyAI> ();
+				ai.setColliderLevel("DEAD");
+				//Destroy (enemy);
+				// ... move the enemy down by the sinkSpeed per second.
 
-			Score score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
-			score.addScore();
-			Vector3 pos = new Vector3(gameObject.rigidbody.position.x, 31.4f, gameObject.rigidbody.position.z);
-			Quaternion rot = Quaternion.Euler(90, 0, gameObject.rigidbody.rotation.z);
-			Instantiate (cargo, pos, rot);
+				EnemyManager em = GameObject.FindGameObjectWithTag ("EnemyManager").GetComponent<EnemyManager> ();
+				em.EnemyDied(enemy);
+				//Screen.showCursor = true;
+				//Application.LoadLevel ("Game Over");
+
+				Score score = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+				score.addScore();
+				Vector3 pos = new Vector3(gameObject.rigidbody.position.x, 31.4f, gameObject.rigidbody.position.z);
+				Quaternion rot = Quaternion.Euler(90, 0, gameObject.rigidbody.rotation.z);
+				Instantiate (cargo, pos, rot);
+				//GameObject.FindGameObjectWithTag ("Enemy").transform.Translate (-Vector3.up * 0.7f * Time.deltaTime);
 		}
 	}
 
@@ -51,6 +57,8 @@ public class CannonballCollision : MonoBehaviour {
 
 				//see if enemy should be killed
 				checkDestroyEnemy(enemy, health);
+				Destroy (gameObject);
+
 			}
 		}
 
