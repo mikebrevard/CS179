@@ -12,7 +12,7 @@ public class Pausedmenu : MonoBehaviour {
 	private bool bought_burst = false;
 	private bool bought_auto = false;
 	private bool bought_mini = false;
-	public Rect rect = new Rect(Screen.width / 2, Screen.height / 2 + 300, 200, 500);
+	Rect rect = new Rect(Screen.width / 2 - 100, Screen.height / 2 , 200, 300);
 	
 	// Use this for initialization
 	void Start () 
