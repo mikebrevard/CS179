@@ -18,26 +18,7 @@ Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\Asse
 Loading C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.060 seconds
+- Completed reload, in  0.061 seconds
 desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\ACER\Desktop\CS179\PirateWars\test_Data\Managed\System.dll (this message is harmless)
-WARNING: Shader Unsupported: 'Hidden/TerrainEngine/Details/BillboardWavingDoublePass' - Pass '' shader state not supported
-The referenced script on this Behaviour is missing!
- 
-(Filename:  Line: 1788)
-
-UnloadTime: 3.443205 ms
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1311.
-Total: 2.000800 ms (FindLiveObjects: 0.056445 ms CreateObjectMapping: 0.017726 ms MarkObjects: 0.247242 ms  DeleteObjects: 1.257206 ms)
-
-WARNING: Shader Unsupported: 'Hidden/TerrainEngine/Details/BillboardWavingDoublePass' - Pass '' shader state not supported
-Level 'Game Lost' (-1) couldn't be loaded because it has not been added to the build settings.
-To add a level to the build settings use the menu File->Build Settings...
- 
-(Filename:  Line: 275)
-
