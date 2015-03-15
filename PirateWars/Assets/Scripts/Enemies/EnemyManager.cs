@@ -53,7 +53,7 @@ public class EnemyManager : MonoBehaviour
 		while (spawnPointIndex == -1 && attempts > 0) {
 			spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
 			foreach (GameObject e in enemies) {
-				if (Vector3.Distance (e.transform.position, spawnPoints[spawnPointIndex].position) < minimumDistance) {
+				if (spawnPointIndex != -1 && (Vector3.Distance (e.transform.position, spawnPoints[spawnPointIndex].position) < minimumDistance)) {
 					spawnPointIndex = -1;
 				}
 			}
