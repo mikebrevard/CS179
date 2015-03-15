@@ -11,6 +11,9 @@ public class Shotgun : MonoBehaviour {
 	float fireDelay;
 	float timerGUI;
 	public float speed;
+
+	public float x;
+	public float y;
 	
 	void Update()
 	{
@@ -54,6 +57,6 @@ public class Shotgun : MonoBehaviour {
 	}
 	void OnGUI()
 	{
-		GUI.Box (new Rect (1150, 635, 50, 20), "" + timerGUI.ToString ("0"));
+		GUI.Box (new Rect (x, y, 50, 20), "" + timerGUI.ToString ("0"));
 	}
 }
